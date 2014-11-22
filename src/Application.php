@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Console;
 
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -115,5 +116,30 @@ class Application extends \Symfony\Component\Console\Application
     public function timeLimit()
     {
         return $this->timeLimit;
+    }
+
+
+    /**
+     * Run another command, usually from within the currently running command.
+     *
+     * @param string $command The fully namespaced name of the command to run
+     * @param array $options An array of options to pass to the command
+     * @param InputInterface $current The input used in the parent command
+     * @param OutputInterface $output The output used in the parent command
+     *
+     * @return int 0 if everything went fine, or an error code
+     */
+    public function runCommand($command, array $options, InputInterface $current, OutputInterface $output)
+    {
+        # The first input argument must be the command name
+        array_unshift($options, $command);
+        $input = new ArrayInput($options);
+
+        if (!$current->isInteractive()) {
+            $input->setInteractive(false);
+        }
+
+        $command = $this->get($command);
+        return $this->doRunCommand($command, $input, $output);
     }
 }

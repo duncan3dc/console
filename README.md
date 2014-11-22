@@ -39,3 +39,15 @@ class LimitedCommand extends \duncan3dc\Console\Command
 }
 ```
 _This behaviour can be overridden by passing the ```--no-time-limit``` when running the application, this will cause the timeout() method to always return false_
+
+
+Calling An Existing Command
+---------------------------
+The [symfony way](http://symfony.com/doc/current/components/console/introduction.html#calling-an-existing-command) of calling an existing command can be a little long-winded, with steps that seem unnecessary (eg, specifying the command name twice).  
+The runCommand() method provides a simplified way of doing this (using the example from the symfony docs):
+```php
+$returnCode = $this->getApplication()->runCommand("demo:greet", [
+    "name"      =>  "Fabien",
+    "--yell"    =>  true,
+], $input, $output);
+```
