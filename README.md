@@ -4,6 +4,8 @@ console
 Create command line php applications using symfony/console.  
 This is basically a fork of symfony/console which does things a little differently and adds some extra features.  
 
+[![Build Status](https://travis-ci.org/duncan3dc/console.svg?branch=master)](https://travis-ci.org/duncan3dc/console)
+
 
 Loading Commands
 ----------------
