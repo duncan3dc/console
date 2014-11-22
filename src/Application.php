@@ -2,6 +2,9 @@
 
 namespace duncan3dc\Console;
 
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -9,6 +12,23 @@ use Symfony\Component\Finder\Finder;
  */
 class Application extends \Symfony\Component\Console\Application
 {
+    /**
+     * @var boolean $timeLimit Whether the application currently allows time limits for commands
+     */
+    protected $timeLimit = true;
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct($name = false, $version = false)
+    {
+        parent::__construct($name, $version);
+
+        $definition = $this->getDefinition();
+        $definition->addOption(new InputOption("no-time-limit", null, InputOption::VALUE_NONE, "Prevent the command from ending at the regular time limit"));
+    }
+
 
     /**
      * Search the specified path for command classes and add them to the application.
@@ -68,5 +88,32 @@ class Application extends \Symfony\Component\Console\Application
         $this->addCommands($commands);
 
         return $this;
+    }
+
+
+    /**
+     * Override configureIO() so that we can check if the global --no-time-limit option was set.
+     *
+     * {@inheritDoc}
+     */
+    protected function configureIO(InputInterface $input, OutputInterface $output)
+    {
+        if ($input->hasParameterOption(["--no-time-limit", "-x"])) {
+            $this->timeLimit = false;
+        } else {
+            $this->timeLimit = true;
+        }
+        parent::configureIO($input, $output);
+    }
+
+
+    /**
+     * Allow commands to check if the application currently allows time limiting or prevents it.
+     *
+     * @return boolean
+     */
+    public function timeLimit()
+    {
+        return $this->timeLimit;
     }
 }

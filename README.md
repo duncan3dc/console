@@ -18,3 +18,24 @@ Using the example below, the file src/commands/Category/Topic/RunCommand.php wil
 $application->loadCommands("src/commands");
 ```
 _Of course, they can still be added the [symfony way](http://symfony.com/doc/current/components/console/introduction.html)_
+
+
+Time Limit Commands
+-------------------
+Commands can limit how long they are run for, and end in a controlled way when the limit is reached.  
+Inside your command's class you can call the timeout() method and pass the number of seconds your command should run for.  
+```php
+class LimitedCommand extends \duncan3dc\Console\Command
+{
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        while (true) {
+            # If the command has been running for more than 10 minutes then end now
+            if ($this->timeout(60 * 10)) {
+                break;
+            }
+        }
+    {
+}
+```
+_This behaviour can be overridden by passing the ```--no-time-limit``` when running the application, this will cause the timeout() method to always return false_
