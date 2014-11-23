@@ -3,6 +3,7 @@
     "description": "Create command line php applications using symfony/console",
     "require": {
         "league/climate": "~2.0.0",
+        "stecman/symfony-console-completion": "~0.4.4",
         "symfony/console": "~2.5.6",
         "symfony/event-dispatcher": "~2.5.6",
         "symfony/filesystem": "~2.5.6",

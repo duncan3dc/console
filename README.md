@@ -85,3 +85,9 @@ protected function configure()
 }
 ```
 _When a command cannot run it will exit with status 201, represented by the class constant Application::STATUS_LOCKED_
+
+
+
+Tab Completion
+--------------
+Tab completion is provided by [stecman/symfony-console-completion](https://github.com/stecman/symfony-console-completion) and instructions on setting it up for your application can be found in the README.md of that repository.  

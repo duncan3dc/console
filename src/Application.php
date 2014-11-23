@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Console;
 
+use Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
@@ -209,6 +210,17 @@ class Application extends \Symfony\Component\Console\Application
         $this->lockPath = $realpath;
 
         return $this;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getDefaultCommands()
+    {
+        $commands = parent::getDefaultCommands();
+        $commands[] = new CompletionCommand;
+        return $commands;
     }
 
 
