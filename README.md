@@ -67,3 +67,19 @@ $returnCode = $this->getApplication()->runCommand("demo:greet", [
 ], $input, $output);
 ```
 _This also ensures any command event listeners that have been registered are called, which symfony does not do_
+
+
+
+Command Locking
+---------------
+All commands are automatically locked to prevent the same command being run simultaneously on the same host.  
+You can prevent particular commands from locking using the doNotLock() method:
+```php
+protected function configure()
+{
+    $this
+        ->doNotLock()
+        ->setDescription("This command can run as many times as it likes, whether the previous run has finished or not");
+}
+```
+_When a command cannot run it will exit with status 201, represented by the class constant Application::STATUS_LOCKED_

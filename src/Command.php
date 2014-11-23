@@ -11,9 +11,92 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Command extends \Symfony\Component\Console\Command\Command
 {
     /**
+     * @var boolean $lock Whether this command uses locking or not
+     */
+    protected $lock = true;
+
+    /**
      * @var int $startTime The unix timestamp that the command started running
      */
     protected $startTime = null;
+
+
+    /**
+     * Get the full path to the lock file for this command.
+     *
+     * @return string The path for the lock file
+     */
+    public function getLockPath()
+    {
+        $path = $this->getApplication()->getLockPath();
+        $command = str_replace(":", "_", $this->getName());
+        return $path . "/" . $command . ".lock";
+    }
+
+
+    /**
+     * Attempt to lock this command.
+     *
+     * @param OutputInterface $output The output object to use for any error messages
+     *
+     * @return void
+     */
+    public function lock(OutputInterface $output)
+    {
+        # If this command doesn't require locking then don't do anything
+        if (!$this->lock) {
+            return;
+        }
+
+        $path = $this->getLockPath();
+
+        # Attempt to create/open a lock file for this command
+        if (!$this->lock = fopen($path, "w")) {
+            $output->backgroundRed("Unable to create a lock file (" . $path . ")");
+            exit(Application::STATUS_PERMISSIONS);
+        }
+
+        # Attempt to lock the file we've just opened
+        if (!flock($this->lock, LOCK_EX | LOCK_NB)) {
+            fclose($this->lock);
+            $output->backgroundRed("Another instance of this command (" . $this->getName() . ") is currently running");
+            exit(Application::STATUS_LOCKED);
+        }
+
+        # Ensure the permissions are as open as possible to allow multiple users to run the same command
+        chmod($path, 0777);
+    }
+
+
+    /**
+     * Release a lock on the command (if one was acquired).
+     *
+     * @return void
+     */
+    public function unlock()
+    {
+        # If this command doesn't require locking then don't do anything
+        if (!$this->lock) {
+            return;
+        }
+
+        flock($this->lock, LOCK_UN);
+        fclose($this->lock);
+
+        unlink($this->getLockPath());
+    }
+
+
+    /**
+     * Set that this command should not use locking.
+     *
+     * @return static
+     */
+    protected function doNotLock()
+    {
+        $this->lock = false;
+        return $this;
+    }
 
 
     /**

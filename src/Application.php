@@ -2,11 +2,16 @@
 
 namespace duncan3dc\Console;
 
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -14,6 +19,21 @@ use Symfony\Component\Finder\Finder;
  */
 class Application extends \Symfony\Component\Console\Application
 {
+    /**
+     * The return code used when a command cannot run as it is locked
+     */
+    const STATUS_LOCKED = 201;
+
+    /**
+     * The return code used when a permissions issue prevented a command from running
+     */
+    const STATUS_PERMISSIONS = 202;
+
+    /**
+     * @var string $lockPath The directory to store command locks in
+     */
+    protected $lockPath = "/tmp/console-locks";
+
     /**
      * @var boolean $timeLimit Whether the application currently allows time limits for commands
      */
@@ -26,6 +46,27 @@ class Application extends \Symfony\Component\Console\Application
     public function __construct($name = false, $version = false)
     {
         parent::__construct($name, $version);
+
+        $dispatcher = new EventDispatcher;
+        $this->setDispatcher($dispatcher);
+
+        # Attempt to acquire a unique lock on the command
+        $dispatcher->addListener(ConsoleEvents::COMMAND, function(ConsoleCommandEvent $event) {
+            $command = $event->getCommand();
+            if (!is_subclass_of($command, __NAMESPACE__ . "\\Command")) {
+                return;
+            }
+            $command->lock($event->getOutput());
+        });
+
+        # If we achieved a lock above then unlock it after the job finishes
+        $dispatcher->addListener(ConsoleEvents::TERMINATE, function(ConsoleTerminateEvent $event) {
+            $command = $event->getCommand();
+            if (!is_subclass_of($command, __NAMESPACE__ . "\\Command")) {
+                return;
+            }
+            $command->unlock();
+        });
 
         $definition = $this->getDefinition();
         $definition->addOption(new InputOption("no-time-limit", null, InputOption::VALUE_NONE, "Prevent the command from ending at the regular time limit"));
@@ -132,6 +173,42 @@ class Application extends \Symfony\Component\Console\Application
     public function timeLimit()
     {
         return $this->timeLimit;
+    }
+
+
+    /**
+     * Get the path to the drectory where lock files are stored.
+     *
+     * Also checks if the directory exists and attempts to create it if not
+     *
+     * @return string
+     */
+    public function getLockPath()
+    {
+        if (!is_dir($this->lockPath)) {
+            (new Filesystem)->mkdir($this->lockPath);
+        }
+        return $this->lockPath;
+    }
+
+
+    /**
+     * Set the path for the drectory where lock files are stored.
+     *
+     * @return static
+     */
+    public function setLockPath($path)
+    {
+        if (!is_dir($path)) {
+            (new Filesystem)->mkdir($path);
+        }
+        if (!$realpath = realpath($path)) {
+            throw new \InvalidArgumentException("The directory (" . $path . ") is unavailable");
+        }
+
+        $this->lockPath = $realpath;
+
+        return $this;
     }
 
 
