@@ -20,6 +20,17 @@ $application->loadCommands("src/commands");
 _Of course, they can still be added the [symfony way](http://symfony.com/doc/current/components/console/introduction.html)_
 
 
+Output
+------
+We use [league/climate](http://climate.thephpleague.com/) for terminal output, whilst also maintaining support for the [symfony way](http://symfony.com/doc/current/components/console/introduction.html#coloring-the-output).  
+So all of the following is possible:
+```php
+$output->blue()->out("Blue? Wow!");
+$output->dump($complexArrayForCLImate);
+$output->writeln("<error>I am a symfony/console error</error>");
+```
+
+
 Time Limit Commands
 -------------------
 Commands can limit how long they are run for, and end in a controlled way when the limit is reached.  

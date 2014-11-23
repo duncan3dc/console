@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Console;
 
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -89,6 +90,21 @@ class Application extends \Symfony\Component\Console\Application
         $this->addCommands($commands);
 
         return $this;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function run(InputInterface $input = null, OutputInterface $output = null)
+    {
+        if ($input === null) {
+            $input = new ArgvInput();
+        }
+        if ($output === null) {
+            $output = new Output();
+        }
+        parent::run($input, $output);
     }
 
 
