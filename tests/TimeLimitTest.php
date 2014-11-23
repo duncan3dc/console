@@ -4,7 +4,7 @@ namespace duncan3dc\Console\Tests;
 
 use duncan3dc\Console\Application;
 
-class CommandTest extends \PHPUnit_Framework_TestCase
+class TimeLimitTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testTimeLimit()
