@@ -3,25 +3,23 @@ console
 
 Create command line php applications using symfony/console.  
 This is basically a fork of symfony/console which does things a little differently and adds some extra features.  
-A lot of the features are useful when running commands in a background context (such as via crontab).  
+Most of the features are useful when running commands in a background context (such as via crontab).  
 
 [![Latest Stable Version](https://poser.pugx.org/duncan3dc/console/version.svg)](https://packagist.org/packages/duncan3dc/console)
 [![Build Status](https://travis-ci.org/duncan3dc/console.svg?branch=master)](https://travis-ci.org/duncan3dc/console)
 
 
-
 Loading Commands
 ----------------
 Commands can be automatically created from classes (meaning you don't need to call setName() inside your command class) using the following criteria:
-* Files/classes must be named using CamelCase and must end in "Command" (with files having the .php extension)
-* Each uppercase character will be converted to lowercase and preceded by a hyphen
-* Directories will represent namespaces and each separater will be replaced with a colon
+* Files/classes must be named using CamelCase and must end in "Command" (with files having the .php extension)  
+* Each uppercase character will be converted to lowercase and preceded by a hyphen  
+* Directories will represent namespaces and each separater will be replaced with a colon  
 Using the example below, the file src/commands/Category/Topic/RunCommand.php will create a command called category:topic:run
 ```php
 $application->loadCommands("src/commands");
 ```
 _Of course, they can still be added the [symfony way](http://symfony.com/doc/current/components/console/introduction.html)_
-
 
 
 Output
@@ -32,8 +30,8 @@ So all of the following is possible:
 $output->blue()->out("Blue? Wow!");
 $output->dump($complexArrayForCLImate);
 $output->writeln("<error>I am a symfony/console error</error>");
+$output->error("I am a league/climate error");
 ```
-
 
 
 Time Limit Commands
@@ -57,7 +55,6 @@ class LimitedCommand extends \duncan3dc\Console\Command
 _This behaviour can be overridden by passing the ```--no-time-limit``` when running the application, this will cause the timeout() method to always return false_
 
 
-
 Calling An Existing Command
 ---------------------------
 The [symfony way](http://symfony.com/doc/current/components/console/introduction.html#calling-an-existing-command) of calling an existing command can be a little long-winded, with steps that seem unnecessary (eg, specifying the command name twice).  
@@ -69,7 +66,6 @@ $returnCode = $this->getApplication()->runCommand("demo:greet", [
 ], $input, $output);
 ```
 _This also ensures any command event listeners that have been registered are called, which symfony does not do_
-
 
 
 Command Locking
@@ -85,7 +81,6 @@ protected function configure()
 }
 ```
 _When a command cannot run it will exit with status 201, represented by the class constant Application::STATUS_LOCKED_
-
 
 
 Tab Completion
