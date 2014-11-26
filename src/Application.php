@@ -157,7 +157,7 @@ class Application extends \Symfony\Component\Console\Application
      */
     protected function configureIO(InputInterface $input, OutputInterface $output)
     {
-        if ($input->hasParameterOption(["--no-time-limit", "-x"])) {
+        if ($input->hasParameterOption("--no-time-limit")) {
             $this->timeLimit = false;
         } else {
             $this->timeLimit = true;
