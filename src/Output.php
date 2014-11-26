@@ -17,6 +17,21 @@ class Output extends CLImate implements OutputInterface
      */
     protected $console;
 
+
+    /**
+     * {@inheritDoc}
+     *
+     * Extend climate to add our default styles in
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->style->addCommand("error", ["background_red", "white"]);
+        $this->style->addCommand("highlight", ["background_cyan", "black"]);
+    }
+
+
     /**
      * Get the ConsoleOutput object we are mimicking.
      *
