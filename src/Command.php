@@ -52,14 +52,14 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         # Attempt to create/open a lock file for this command
         if (!$this->lock = fopen($path, "w")) {
-            $output->backgroundRed("Unable to create a lock file (" . $path . ")");
+            $output->error("Unable to create a lock file (" . $path . ")");
             exit(Application::STATUS_PERMISSIONS);
         }
 
         # Attempt to lock the file we've just opened
         if (!flock($this->lock, LOCK_EX | LOCK_NB)) {
             fclose($this->lock);
-            $output->backgroundRed("Another instance of this command (" . $this->getName() . ") is currently running");
+            $output->error("Another instance of this command (" . $this->getName() . ") is currently running");
             exit(Application::STATUS_LOCKED);
         }
 
