@@ -141,11 +141,24 @@ class Application extends \Symfony\Component\Console\Application
     public function run(InputInterface $input = null, OutputInterface $output = null)
     {
         if ($input === null) {
+
+            # Allow namespace contents to be listed when they are entered with a trailing colon
+            if (isset($_SERVER["argv"][1]) && substr($_SERVER["argv"][1], -1) === ":") {
+
+                # Re-create the argv contents to simulate the user running the list command
+                $argv = [$_SERVER["argv"][0]];
+                $argv[] = "list";
+                $argv[] = substr($_SERVER["argv"][1], 0, -1);
+                $argv += array_slice($_SERVER["argv"], 2, count($_SERVER["argv"]) - 2);
+                $_SERVER["argv"] = $argv;
+            }
             $input = new ArgvInput();
         }
+
         if ($output === null) {
             $output = new Output();
         }
+
         parent::run($input, $output);
     }
 

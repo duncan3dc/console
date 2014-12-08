@@ -86,3 +86,25 @@ _When a command cannot run it will exit with status 201, represented by the clas
 Tab Completion
 --------------
 Tab completion is provided by [stecman/symfony-console-completion](https://github.com/stecman/symfony-console-completion) and instructions on setting it up for your application can be found in the README.md of that repository.  
+
+
+Namespace Listing
+-----------------
+When you are entering commands in completion mode, it can often be useful to view the list of available commands in the namespace.  
+For example you might type `cat` then press tab which would complete the namespace, and the namespace separator:
+```sh
+:~$ console category:
+```
+But when you press tab again, you might be presented with a list of commands (or sub-namespaces) you don't entirely recognise. At this point the symfony way would be to delete the colon, run your cursor back to before your namespace, and type `list`:
+```sh
+:~$ console list category
+```
+Then having identified the command you need from the listing you would then need to type what you had earlier, before entering the command you require:
+```sh
+:~$ console category:
+```
+To make this use case easier, we have made running a command with a trailing colon, an alias for the list command shown above, so you can actually run:
+```sh
+:~$ console category:
+```
+Which will list all your available commands, then you can press the up arrow to retrieve that same command from your shell's history and carry on entering the command name, much quicker
