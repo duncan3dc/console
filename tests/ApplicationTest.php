@@ -1,6 +1,6 @@
 <?php
 
-namespace duncan3dc\Console\Tests;
+namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
 
