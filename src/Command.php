@@ -50,6 +50,9 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $path = $this->getLockPath();
 
+        # If the lock file doesn't already exist then we are creating it, so we need to open the permissions on it
+        $newFile = !file_exists($path);
+
         # Attempt to create/open a lock file for this command
         if (!$this->lock = fopen($path, "w")) {
             $output->error("Unable to create a lock file (" . $path . ")");
@@ -64,7 +67,9 @@ class Command extends \Symfony\Component\Console\Command\Command
         }
 
         # Ensure the permissions are as open as possible to allow multiple users to run the same command
-        chmod($path, 0777);
+        if ($newFile) {
+            chmod($path, 0777);
+        }
     }
 
 
