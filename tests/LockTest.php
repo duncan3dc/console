@@ -3,45 +3,48 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
+use Mockery;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class LockTest extends \PHPUnit_Framework_TestCase
 {
+    protected $application;
+
+    public function setUp()
+    {
+        $this->application = new Application;
+    }
+
 
     public function testLockPath()
     {
-        $application = new Application;
+        $this->application->loadCommands(__DIR__ . "/commands/base");
 
-        $application->loadCommands(__DIR__ . "/commands/base");
-
-        $command = $application->get("category:do-stuff");
+        $command = $this->application->get("category:do-stuff");
         $this->assertSame("/tmp/console-locks/category_do-stuff.lock", $command->getLockPath());
     }
 
 
     public function testSetLockPath()
     {
-        $application = new Application;
-
         $path = "/tmp/phpunit-test";
 
-        $application->setLockPath($path);
+        $this->application->setLockPath($path);
 
-        $reflection = new \ReflectionClass($application);
+        $reflection = new \ReflectionClass($this->application);
         $lockPath = $reflection->getProperty("lockPath");
         $lockPath->setAccessible(true);
-        $this->assertSame($path, $lockPath->getValue($application));
+        $this->assertSame($path, $lockPath->getValue($this->application));
     }
 
 
     public function testLock()
     {
-        $application = new Application;
+        $output = Mockery::mock(OutputInterface::class);
 
-        $output = $this->getMock("Symfony\Component\Console\Output\OutputInterface");
+        $this->application->loadCommands(__DIR__ . "/commands/base");
 
-        $application->loadCommands(__DIR__ . "/commands/base");
-
-        $command = $application->get("category:do-stuff");
+        $command = $this->application->get("category:do-stuff");
         $command->lock($output);
 
         $lock = fopen($command->getLockPath(), "w");
@@ -54,5 +57,23 @@ class LockTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(flock($lock, LOCK_EX | LOCK_NB));
         flock($lock, LOCK_UN);
         fclose($lock);
+    }
+
+
+    public function testDoNotLock()
+    {
+        $output = Mockery::mock(OutputInterface::class);
+
+        $this->application->loadCommands(__DIR__ . "/commands/base");
+
+        $command = $this->application->get("category:no-lock");
+        $command->lock($output);
+
+        $lock = fopen($command->getLockPath(), "w");
+        $this->assertTrue(flock($lock, LOCK_EX | LOCK_NB));
+        flock($lock, LOCK_UN);
+        fclose($lock);
+
+        $command->unlock($output);
     }
 }

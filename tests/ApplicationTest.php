@@ -3,27 +3,31 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
+    protected $application;
+
+    public function setUp()
+    {
+        $this->application = new Application;
+    }
+
 
     public function testLoadCommands()
     {
-        $application = new Application;
+        $this->application->loadCommands(__DIR__ . "/commands/base");
 
-        $application->loadCommands(__DIR__ . "/commands/base");
-
-        $this->assertTrue($application->has("category:do-stuff"));
+        $this->assertTrue($this->application->has("category:do-stuff"));
     }
 
 
     public function testLoadCommandsNamespace()
     {
-        $application = new Application;
+        $this->application->loadCommands(__DIR__ . "/commands/extra", "Extra");
 
-        $application->loadCommands(__DIR__ . "/commands/extra", "Extra");
-
-        $this->assertTrue($application->has("category:do-stuff"));
+        $this->assertTrue($this->application->has("category:do-stuff"));
     }
 
 
@@ -31,7 +35,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $path = __DIR__ . "/no-such-directory";
         $this->setExpectedException("InvalidArgumentException", 'The "' . $path . '" directory does not exist.');
-        (new Application)->loadCommands($path);
+        $this->application->loadCommands($path);
     }
 
 
@@ -39,6 +43,30 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $path = __DIR__ . "/commands/empty-directory";
         $this->setExpectedException("InvalidArgumentException", "No commands were found in the path (" . $path . ")");
-        (new Application)->loadCommands($path);
+        $this->application->loadCommands($path);
+    }
+
+
+    public function testSetLockPath()
+    {
+        $path = "/tmp/does_not_exist";
+        $fs = new Filesystem;
+        if ($fs->exists($path)) {
+            $fs->remove($path);
+        }
+
+        $this->application->setLockPath($path);
+
+        $this->assertTrue($fs->exists($path));
+    }
+
+
+    public function testGetLockPath()
+    {
+        $fs = new Filesystem;
+
+        $path = $this->application->getLockPath();
+
+        $this->assertTrue($fs->exists($path));
     }
 }

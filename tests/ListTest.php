@@ -3,22 +3,28 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
+use Mockery;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ListTest extends \PHPUnit_Framework_TestCase
 {
+    protected $application;
+
+    public function setUp()
+    {
+        $this->application = new Application;
+    }
+
     public function testOutput()
     {
-        $application = new Application;
-
         $_SERVER["argv"][1] = "category:";
 
-        $output = $this->getMock(OutputInterface::class);
+        $output = Mockery::mock(OutputInterface::class)->shouldIgnoreMissing();
 
-        $application->loadCommands(__DIR__ . "/commands/base");
+        $this->application->loadCommands(__DIR__ . "/commands/base");
 
-        $application->setAutoExit(false);
-        $application->run(null, $output);
+        $this->application->setAutoExit(false);
+        $this->application->run(null, $output);
 
         $this->assertSame("list", $_SERVER["argv"][1]);
         $this->assertSame("category", $_SERVER["argv"][2]);
