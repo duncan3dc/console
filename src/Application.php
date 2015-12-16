@@ -71,6 +71,7 @@ class Application extends \Symfony\Component\Console\Application
 
         $definition = $this->getDefinition();
         $definition->addOption(new InputOption("no-time-limit", null, InputOption::VALUE_NONE, "Prevent the command from ending at the regular time limit"));
+        $definition->addOption(new InputOption("lock-path", 'l', InputOption::VALUE_OPTIONAL, "Allow setting the lock path for each command", $this->lockPath));
     }
 
 
@@ -175,6 +176,11 @@ class Application extends \Symfony\Component\Console\Application
         } else {
             $this->timeLimit = true;
         }
+
+        if (true === $input->hasParameterOption(array('--lock-path', '-l'))) {
+            $this->setLockPath($input->getParameterOption(array('--lock-path', '-l')));
+        }
+        
         parent::configureIO($input, $output);
     }
 
