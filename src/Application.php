@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Console;
 
+use duncan3dc\SymfonyCLImate\Output;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
