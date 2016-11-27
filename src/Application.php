@@ -53,7 +53,7 @@ class Application extends \Symfony\Component\Console\Application
         $this->setDispatcher($dispatcher);
 
         # Attempt to acquire a unique lock on the command
-        $dispatcher->addListener(ConsoleEvents::COMMAND, function(ConsoleCommandEvent $event) {
+        $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) {
             $command = $event->getCommand();
             if (!is_subclass_of($command, __NAMESPACE__ . "\\Command")) {
                 return;
@@ -62,7 +62,7 @@ class Application extends \Symfony\Component\Console\Application
         });
 
         # If we achieved a lock above then unlock it after the job finishes
-        $dispatcher->addListener(ConsoleEvents::TERMINATE, function(ConsoleTerminateEvent $event) {
+        $dispatcher->addListener(ConsoleEvents::TERMINATE, function (ConsoleTerminateEvent $event) {
             $command = $event->getCommand();
             if (!is_subclass_of($command, __NAMESPACE__ . "\\Command")) {
                 return;
@@ -112,10 +112,10 @@ class Application extends \Symfony\Component\Console\Application
             if (substr($command, 0, 1) == "\\") {
                 $command = substr($command, 1);
             }
-            $command = preg_replace_callback("/^([A-Z])(.*)Command$/", function($match) {
+            $command = preg_replace_callback("/^([A-Z])(.*)Command$/", function ($match) {
                 return strtolower($match[1]) . $match[2];
             }, $command);
-            $command = preg_replace_callback("/(\\\\)?([A-Z])/", function($match) {
+            $command = preg_replace_callback("/(\\\\)?([A-Z])/", function ($match) {
                 $result = ($match[1]) ? ":" : "-";
                 $result .= strtolower($match[2]);
                 return $result;
@@ -153,11 +153,11 @@ class Application extends \Symfony\Component\Console\Application
                 $argv += array_slice($_SERVER["argv"], 2, count($_SERVER["argv"]) - 2);
                 $_SERVER["argv"] = $argv;
             }
-            $input = new ArgvInput();
+            $input = new ArgvInput;
         }
 
         if ($output === null) {
-            $output = new Output();
+            $output = new Output;
         }
 
         parent::run($input, $output);
