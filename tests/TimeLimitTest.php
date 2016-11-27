@@ -16,6 +16,13 @@ class TimeLimitTest extends \PHPUnit_Framework_TestCase
         $this->application = new Application;
     }
 
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
+
     public function testTimeLimit()
     {
         $input = Mockery::mock(InputInterface::class)->shouldIgnoreMissing();

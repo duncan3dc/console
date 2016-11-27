@@ -16,6 +16,12 @@ class LockTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
+
     public function testLockPath()
     {
         $this->application->loadCommands(__DIR__ . "/commands/base");

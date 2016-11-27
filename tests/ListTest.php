@@ -15,6 +15,13 @@ class ListTest extends \PHPUnit_Framework_TestCase
         $this->application = new Application;
     }
 
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
+
     public function testOutput()
     {
         $_SERVER["argv"][1] = "category:";
