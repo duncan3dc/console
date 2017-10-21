@@ -110,7 +110,17 @@ class Command extends \Symfony\Component\Console\Command\Command
     public function run(InputInterface $input, OutputInterface $output)
     {
         $this->startTime = time();
-        return parent::run($input, $output);
+
+        $timer = new Timer;
+
+        $return = parent::run($input, $output);
+
+        $duration = $timer->getDuration();
+        $output->inline("[" . $this->getName() . "] ");
+        $output->inline("Time: " . $duration->format() . ", ");
+        $output->out(sprintf("Memory: %4.2fmb", memory_get_peak_usage(true) / 1048576));
+
+        return $return;
     }
 
 
