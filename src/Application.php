@@ -41,6 +41,11 @@ class Application extends \Symfony\Component\Console\Application
      */
     protected $timeLimit = true;
 
+    /**
+     * @var bool $showResourceInfo Whether the application should show resource info for commands
+     */
+    private $showResourceInfo = true;
+
 
     /**
      * {@inheritDoc}
@@ -72,6 +77,8 @@ class Application extends \Symfony\Component\Console\Application
 
         $definition = $this->getDefinition();
         $definition->addOption(new InputOption("no-time-limit", null, InputOption::VALUE_NONE, "Prevent the command from ending at the regular time limit"));
+        $definition->addOption(new InputOption("show-resource-info", null, InputOption::VALUE_NONE, "Show the resource info it took to run a command"));
+        $definition->addOption(new InputOption("hide-resource-info", null, InputOption::VALUE_NONE, "Hide the resource info it took to run a command"));
     }
 
 
@@ -165,18 +172,30 @@ class Application extends \Symfony\Component\Console\Application
 
 
     /**
-     * Override configureIO() so that we can check if the global --no-time-limit option was set.
+     * Override configureIO() so that we can check if the global options were set.
      *
      * {@inheritDoc}
      */
     protected function configureIO(InputInterface $input, OutputInterface $output)
     {
+        parent::configureIO($input, $output);
+
         if ($input->hasParameterOption("--no-time-limit")) {
             $this->timeLimit = false;
         } else {
             $this->timeLimit = true;
         }
-        parent::configureIO($input, $output);
+
+        # In quiet mode, don't display resource info by default
+        if ($output->isQuiet()) {
+            $this->showResourceInfo = false;
+        }
+
+        if ($input->hasParameterOption("--show-resource-info")) {
+            $this->showResourceInfo = true;
+        } elseif ($input->hasParameterOption("--hide-resource-info")) {
+            $this->showResourceInfo = false;
+        }
     }
 
 
@@ -188,6 +207,17 @@ class Application extends \Symfony\Component\Console\Application
     public function timeLimit()
     {
         return $this->timeLimit;
+    }
+
+
+    /**
+     * Allow commands to check if the application should show resource info or not.
+     *
+     * @return bool
+     */
+    public function showResourceInfo()
+    {
+        return $this->showResourceInfo;
     }
 
 
