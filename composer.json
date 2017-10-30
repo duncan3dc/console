@@ -15,9 +15,9 @@
         "phpunit/phpunit": "^5.7.1"
     },
     "autoload": {
-        "psr-4": {
-            "duncan3dc\\Console\\": "src/",
-            "duncan3dc\\ConsoleTests\\": "tests/"
-        }
+        "psr-4": {"duncan3dc\\Console\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"duncan3dc\\ConsoleTests\\": "tests/"}
     }
 }
