@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 0.6.0 - 2017-12-12
+
+### Added
+
+* [Commands] Commands now output how long they ran for, and how much memory they used
+
+### Changed
+
+* [Support] Add support for PHP 7.2
+* [Support] Drop support for HHVM
+* [Support] Add support for Symfony 4.0
+
+--------
+
 ## 0.5.0 - 2016-11-25
 
 ### Changed
