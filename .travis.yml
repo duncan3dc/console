@@ -12,11 +12,14 @@ matrix:
   - php: nightly
 
 env:
-  - COMPOSER_OPTS=""
-  - COMPOSER_OPTS="--prefer-lowest"
+  - SYMFONY_VERSION=""    COMPOSER_OPTS=""
+  - SYMFONY_VERSION="2.7" COMPOSER_OPTS="--prefer-lowest"
+  - SYMFONY_VERSION="3.0" COMPOSER_OPTS="--prefer-lowest"
+  - SYMFONY_VERSION="4.0" COMPOSER_OPTS="--prefer-lowest"
 
 install:
   - composer self-update --snapshot
+  - tests/travis/symfony.php
   - composer update $COMPOSER_OPTS
 
 script:
