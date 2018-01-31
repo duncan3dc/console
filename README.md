@@ -7,7 +7,7 @@ Most of the features are useful when running commands in a background context (s
 
 [![Latest Stable Version](https://poser.pugx.org/duncan3dc/console/version.svg)](https://packagist.org/packages/duncan3dc/console)
 [![Build Status](https://travis-ci.org/duncan3dc/console.svg?branch=master)](https://travis-ci.org/duncan3dc/console)
-[![Coverage Status](https://coveralls.io/repos/github/duncan3dc/console/badge.svg?branch=master)](https://coveralls.io/github/duncan3dc/console)
+[![Coverage Status](https://coveralls.io/repos/github/duncan3dc/console/badge.svg)](https://coveralls.io/github/duncan3dc/console)
 
 
 Loading Commands
