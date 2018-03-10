@@ -24,7 +24,7 @@ class Timer
      *
      * @return Duration
      */
-    public function getDuration()
+    public function getDuration(): Duration
     {
         $time = microtime(true) - $this->start;
 

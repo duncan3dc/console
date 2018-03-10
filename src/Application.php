@@ -50,7 +50,7 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * {@inheritDoc}
      */
-    public function __construct($name = false, $version = false)
+    public function __construct(string $name = "UNKNOWN", string $version = "UNKNOWN")
     {
         parent::__construct($name, $version);
 
@@ -92,9 +92,9 @@ class Application extends \Symfony\Component\Console\Application
      *
      * @param string $path The path to search for the command classes
      *
-     * @return static
+     * @return $this
      */
-    public function loadCommands($path, $namespace = "")
+    public function loadCommands(string $path, string $namespace = ""): Application
     {
         $commands = [];
 
@@ -202,9 +202,9 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * Allow commands to check if the application currently allows time limiting or prevents it.
      *
-     * @return boolean
+     * @return bool
      */
-    public function timeLimit()
+    public function timeLimit(): bool
     {
         return $this->timeLimit;
     }
@@ -215,7 +215,7 @@ class Application extends \Symfony\Component\Console\Application
      *
      * @return bool
      */
-    public function showResourceInfo()
+    public function showResourceInfo(): bool
     {
         return $this->showResourceInfo;
     }
@@ -228,7 +228,7 @@ class Application extends \Symfony\Component\Console\Application
      *
      * @return string
      */
-    public function getLockPath()
+    public function getLockPath(): string
     {
         if (!is_dir($this->lockPath)) {
             (new Filesystem)->mkdir($this->lockPath);
@@ -238,11 +238,13 @@ class Application extends \Symfony\Component\Console\Application
 
 
     /**
-     * Set the path for the drectory where lock files are stored.
+     * Set the path for the directory where lock files are stored.
      *
-     * @return static
+     * @param string $path The path to use
+     *
+     * @return $this
      */
-    public function setLockPath($path)
+    public function setLockPath(string $path): Application
     {
         if (!is_dir($path)) {
             (new Filesystem)->mkdir($path);
@@ -278,7 +280,7 @@ class Application extends \Symfony\Component\Console\Application
      *
      * @return int 0 if everything went fine, or an error code
      */
-    public function runCommand($command, array $options, InputInterface $current, OutputInterface $output)
+    public function runCommand(string $command, array $options, InputInterface $current, OutputInterface $output): int
     {
         # The first input argument must be the command name
         array_unshift($options, $command);

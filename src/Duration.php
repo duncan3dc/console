@@ -22,11 +22,11 @@ class Duration
     /**
      * Set the start time of the timer.
      *
-     * @return void
+     * @param float $time The time to start timing from
      */
-    public function __construct($time)
+    public function __construct(float $time)
     {
-        $this->time = (float) $time;
+        $this->time = $time;
     }
 
 
@@ -35,7 +35,7 @@ class Duration
      *
      * @return string
      */
-    public function format()
+    public function format(): string
     {
         foreach ($this->times as $unit => $value) {
             if ($this->time >= $value) {

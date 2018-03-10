@@ -26,7 +26,7 @@ class Command extends \Symfony\Component\Console\Command\Command
      *
      * @return string The path for the lock file
      */
-    public function getLockPath()
+    public function getLockPath(): string
     {
         $path = $this->getApplication()->getLockPath();
         $command = str_replace(":", "_", $this->getName());
@@ -95,9 +95,9 @@ class Command extends \Symfony\Component\Console\Command\Command
     /**
      * Set that this command should not use locking.
      *
-     * @return static
+     * @return $this
      */
-    protected function doNotLock()
+    protected function doNotLock(): Command
     {
         $this->lock = false;
         return $this;
@@ -131,9 +131,9 @@ class Command extends \Symfony\Component\Console\Command\Command
      *
      * @param int $timeout The number of seconds the command is allowed to run for
      *
-     * @return boolean True if the time has been exceded and the command should end
+     * @return bool True if the time has been exceeded and the command should end
      */
-    public function timeout($timeout)
+    public function timeout(int $timeout): bool
     {
         # Check if the application is currently allowing time limiting or not
         if (!$this->getApplication()->timeLimit()) {
