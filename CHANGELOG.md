@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 0.7.0 - 2018-04-05
+
+### Changed
+
+* [General] Most methods now use type hints where possible
+* [Support] Drop support for PHP 5.6
+
+--------
+
 ## 0.6.0 - 2017-12-12
 
 ### Added
