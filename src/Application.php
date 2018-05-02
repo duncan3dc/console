@@ -293,22 +293,4 @@ class Application extends \Symfony\Component\Console\Application
         $command = $this->get($command);
         return $this->doRunCommand($command, $input, $output);
     }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTerminalWidth()
-    {
-        return parent::getTerminalWidth();
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTerminalHeight()
-    {
-        return parent::getTerminalHeight();
-    }
 }
