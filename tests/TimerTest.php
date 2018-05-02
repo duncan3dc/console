@@ -4,8 +4,9 @@ namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Timer;
 use duncan3dc\Console\Duration;
+use PHPUnit\Framework\TestCase;
 
-class TimerTest extends \PHPUnit_Framework_TestCase
+class TimerTest extends TestCase
 {
 
     public function testGetDuration()

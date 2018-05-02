@@ -14,7 +14,7 @@
         "maglnet/composer-require-checker": "^0.1.6",
         "mockery/mockery": "^1.0",
         "php-coveralls/php-coveralls": "^2.0",
-        "phpunit/phpunit": "^5.7.1"
+        "phpunit/phpunit": "^7.1"
     },
     "autoload": {
         "psr-4": {"duncan3dc\\Console\\": "src/"}

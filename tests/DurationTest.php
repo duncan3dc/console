@@ -3,8 +3,9 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Duration;
+use PHPUnit\Framework\TestCase;
 
-class DurationTest extends \PHPUnit_Framework_TestCase
+class DurationTest extends TestCase
 {
 
     public function formatProvider()

@@ -3,9 +3,10 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     protected $application;
 
@@ -34,7 +35,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     public function testLoadCommandsInvalidDirectory()
     {
         $path = __DIR__ . "/no-such-directory";
-        $this->setExpectedException("InvalidArgumentException", 'The "' . $path . '" directory does not exist.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("The \"{$path}\" directory does not exist.");
         $this->application->loadCommands($path);
     }
 
@@ -42,7 +44,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     public function testLoadCommandsEmptyDirectory()
     {
         $path = __DIR__ . "/commands/empty-directory";
-        $this->setExpectedException("InvalidArgumentException", "No commands were found in the path (" . $path . ")");
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("No commands were found in the path ({$path})");
         $this->application->loadCommands($path);
     }
 

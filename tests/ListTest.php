@@ -4,9 +4,10 @@ namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
 use Mockery;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListTest extends \PHPUnit_Framework_TestCase
+class ListTest extends TestCase
 {
     protected $application;
 

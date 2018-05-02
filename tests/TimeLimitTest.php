@@ -4,10 +4,11 @@ namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
 use Mockery;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TimeLimitTest extends \PHPUnit_Framework_TestCase
+class TimeLimitTest extends TestCase
 {
     protected $application;
 
