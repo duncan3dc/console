@@ -8,7 +8,7 @@
         "symfony/event-dispatcher": "^2.7|^3.0|^4.0",
         "symfony/filesystem": "^2.7|^3.0|^4.0",
         "symfony/finder": "^2.7|^3.0|^4.0",
-        "php": "^7.0"
+        "php": "^7.1"
     },
     "require-dev": {
         "maglnet/composer-require-checker": "^0.1.6",
