@@ -196,6 +196,14 @@ class Application extends \Symfony\Component\Console\Application
         } elseif ($input->hasParameterOption("--hide-resource-info")) {
             $this->showResourceInfo = false;
         }
+
+        if ($output->isVeryVerbose()) {
+            $handler = new \NunoMaduro\Collision\Handler;
+            $handler->setOutput($output);
+            $provider = new \NunoMaduro\Collision\Provider(null, $handler);
+            $provider->register();
+            $this->setCatchExceptions(false);
+        }
     }
 
 

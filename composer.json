@@ -3,6 +3,7 @@
     "description": "Create command line php applications using symfony/console",
     "require": {
         "duncan3dc/symfony-climate": "^0.1|^0.2",
+        "nunomaduro/collision": "^2.0",
         "stecman/symfony-console-completion": "^0.7|^0.8",
         "symfony/console": "^2.7|^3.0|^4.0",
         "symfony/event-dispatcher": "^2.7|^3.0|^4.0",
