@@ -1,6 +1,22 @@
 Changelog
 =========
 
+## 1.0.0 - 2018-05-04
+
+### Added
+
+* [General] Use [collision](https://github.com/nunomaduro/collision) for exception handling.
+
+### Changed
+
+* [Support] Drop support for PHP 7.0
+
+### Removed
+
+* [Application] `getTerminalWidth()/getTerminalHeight()` have been removed following their removal upstream. (The [Terminal class](http://symfony.com/blog/new-in-symfony-3-2-console-improvements-part-2) should be used instead).
+
+--------
+
 ## 0.7.0 - 2018-04-05
 
 ### Changed
