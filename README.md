@@ -5,9 +5,9 @@ Create command line php applications using symfony/console.
 This is basically a fork of symfony/console which does things a little differently and adds some extra features.  
 Most of the features are useful when running commands in a background context (such as via crontab).  
 
-[![Latest Stable Version](https://poser.pugx.org/duncan3dc/console/version.svg)](https://packagist.org/packages/duncan3dc/console)
-[![Build Status](https://travis-ci.org/duncan3dc/console.svg?branch=master)](https://travis-ci.org/duncan3dc/console)
-[![Coverage Status](https://coveralls.io/repos/github/duncan3dc/console/badge.svg)](https://coveralls.io/github/duncan3dc/console)
+[![release](https://poser.pugx.org/duncan3dc/console/version.svg)](https://packagist.org/packages/duncan3dc/console)
+[![build](https://travis-ci.org/duncan3dc/console.svg?branch=master)](https://travis-ci.org/duncan3dc/console)
+[![coverage](https://codecov.io/gh/duncan3dc/console/graph/badge.svg)](https://codecov.io/gh/duncan3dc/console)
 
 
 Loading Commands
