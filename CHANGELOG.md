@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 1.1.0 - 2018-08-21
+
+### Added
+
+* [General] Added a `command()` method that type hints against duncan3dc/symfony-climate.
+
+--------
+
 ## 1.0.0 - 2018-05-04
 
 ### Added

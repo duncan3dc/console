@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Console;
 
+use duncan3dc\SymfonyCLImate\Output;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -143,5 +144,28 @@ class Command extends \Symfony\Component\Console\Command\Command
         $endTime = $this->startTime + $timeout;
 
         return (time() > $endTime);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        return $this->command($input, $output);
+    }
+
+
+    /**
+     * Execute this command.
+     *
+     * @param InputInterface $input
+     * @param Output $output
+     *
+     * @return int|null Zero or null if everything went fine, otherwise the error code
+     */
+    protected function command(InputInterface $input, Output $output)
+    {
+        return parent::execute($input, $output);
     }
 }
