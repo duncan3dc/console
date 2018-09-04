@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 1.2.0 - 2018-09-04
+
+### Added
+
+* [Commands] Added a `ListCommand` command that enhances the standard list capabilities.
+
+--------
+
 ## 1.1.0 - 2018-08-21
 
 ### Added
