@@ -5,6 +5,7 @@ namespace duncan3dc\ConsoleTests;
 use duncan3dc\Console\Application;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use function exec;
 
 class ApplicationTest extends TestCase
 {
@@ -71,5 +72,13 @@ class ApplicationTest extends TestCase
         $path = $this->application->getLockPath();
 
         $this->assertTrue($fs->exists($path));
+    }
+
+
+    public function testCommandLineExitCode()
+    {
+        exec(__DIR__ . "/app.php exception", $output, $result);
+
+        $this->assertGreaterThan(0, $result);
     }
 }

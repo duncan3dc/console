@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 1.2.1 - 2018-10-01
+
+### Fixed
+
+* [Application] Prevent installation of a upstream version with an exit code bug.
+
+--------
+
 ## 1.2.0 - 2018-09-04
 
 ### Added
