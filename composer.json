@@ -12,9 +12,9 @@
         "role": "Developer"
     }],
     "require": {
-        "duncan3dc/symfony-climate": "^0.1|^0.2",
-        "nunomaduro/collision": "^2.0",
-        "stecman/symfony-console-completion": "^0.7|^0.8",
+        "duncan3dc/symfony-climate": "^0.3",
+        "nunomaduro/collision": "^2.1",
+        "stecman/symfony-console-completion": "^0.9",
         "symfony/console": "^3.4|^4.2",
         "symfony/event-dispatcher": "^3.4|^4.2",
         "symfony/filesystem": "^3.4|^4.2",
