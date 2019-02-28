@@ -15,10 +15,10 @@
         "duncan3dc/symfony-climate": "^0.1|^0.2",
         "nunomaduro/collision": "^2.0",
         "stecman/symfony-console-completion": "^0.7|^0.8",
-        "symfony/console": "^2.7|^3.0|^4.0",
-        "symfony/event-dispatcher": "^2.7|^3.0|^4.0",
-        "symfony/filesystem": "^2.7|^3.0|^4.0",
-        "symfony/finder": "^2.7|^3.0|^4.0",
+        "symfony/console": "^3.4|^4.2",
+        "symfony/event-dispatcher": "^3.4|^4.2",
+        "symfony/filesystem": "^3.4|^4.2",
+        "symfony/finder": "^3.4|^4.2",
         "php": "^7.1"
     },
     "conflict": {
