@@ -11,7 +11,7 @@ class ApplicationTest extends TestCase
 {
     protected $application;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->application = new Application;
     }
