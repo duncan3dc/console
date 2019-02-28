@@ -7,7 +7,7 @@ if (!getenv("SYMFONY_VERSION")) {
 
 $path = __DIR__ . "/../../composer.json";
 
-$json = file_get_contents($path);
+$json = (string) file_get_contents($path);
 $composer = json_decode($json);
 
 foreach ($composer->require as $package => &$version) {

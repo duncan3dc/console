@@ -60,19 +60,17 @@ class Application extends \Symfony\Component\Console\Application
         # Attempt to acquire a unique lock on the command
         $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) {
             $command = $event->getCommand();
-            if (!is_subclass_of($command, __NAMESPACE__ . "\\Command")) {
-                return;
+            if ($command instanceof Command) {
+                $command->lock($event->getOutput());
             }
-            $command->lock($event->getOutput());
         });
 
         # If we achieved a lock above then unlock it after the job finishes
         $dispatcher->addListener(ConsoleEvents::TERMINATE, function (ConsoleTerminateEvent $event) {
             $command = $event->getCommand();
-            if (!is_subclass_of($command, __NAMESPACE__ . "\\Command")) {
-                return;
+            if ($command instanceof Command) {
+                $command->unlock();
             }
-            $command->unlock();
         });
 
         $definition = $this->getDefinition();
@@ -99,12 +97,12 @@ class Application extends \Symfony\Component\Console\Application
         $commands = [];
 
         # Get the realpath so we can strip it from the start of the filename
-        $realpath = realpath($path);
+        $realpath = (string) realpath($path);
 
         $finder = (new Finder())->files()->in($path)->name("/[A-Z].*Command.php/");
         foreach ($finder as $file) {
             # Get the realpath of the file and ensure the class is loaded
-            $filename = $file->getRealPath();
+            $filename = (string) $file->getRealPath();
             require_once $filename;
 
             # Convert the filename to a class
@@ -118,7 +116,7 @@ class Application extends \Symfony\Component\Console\Application
             if (substr($command, 0, 1) == "\\") {
                 $command = substr($command, 1);
             }
-            $command = preg_replace_callback("/^([A-Z])(.*)Command$/", function ($match) {
+            $command = (string) preg_replace_callback("/^([A-Z])(.*)Command$/", function ($match) {
                 return strtolower($match[1]) . $match[2];
             }, $command);
             $command = preg_replace_callback("/(\\\\)?([A-Z])/", function ($match) {

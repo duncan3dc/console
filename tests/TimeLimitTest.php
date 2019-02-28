@@ -3,18 +3,34 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
+use duncan3dc\SymfonyCLImate\Output;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Mockery\MockInterface;
 
 class TimeLimitTest extends TestCase
 {
-    protected $application;
+    /** @var Application */
+    private $application;
+
+    /** @var InputInterface&MockInterface */
+    private $input;
+
+    /** @var OutputInterface&MockInterface */
+    private $output;
+
 
     public function setUp(): void
     {
         $this->application = new Application();
+
+        $this->input = Mockery::mock(InputInterface::class);
+        $this->output = Mockery::mock(Output::class);
+
+        $this->input->shouldIgnoreMissing();
+        $this->output->shouldIgnoreMissing();
     }
 
 
@@ -26,13 +42,10 @@ class TimeLimitTest extends TestCase
 
     public function testTimeLimit()
     {
-        $input = Mockery::mock(InputInterface::class)->shouldIgnoreMissing();
-        $output = Mockery::mock(OutputInterface::class)->shouldIgnoreMissing();
-
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $start = time();
-        $this->application->runCommand("category:time-limit", [], $input, $output);
+        $this->application->runCommand("category:time-limit", [], $this->input, $this->output);
         $runtime = time() - $start;
         $this->assertGreaterThan(1, $runtime);
         $this->assertLessThan(4, $runtime);
@@ -46,13 +59,10 @@ class TimeLimitTest extends TestCase
         $timeLimit->setAccessible(true);
         $timeLimit->setValue($this->application, false);
 
-        $input = Mockery::mock(InputInterface::class)->shouldIgnoreMissing();
-        $output = Mockery::mock(OutputInterface::class)->shouldIgnoreMissing();
-
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $start = time();
-        $this->application->runCommand("category:time-limit", [], $input, $output);
+        $this->application->runCommand("category:time-limit", [], $this->input, $this->output);
         $runtime = time() - $start;
         $this->assertGreaterThan(4, $runtime);
     }

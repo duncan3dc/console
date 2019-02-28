@@ -10,7 +10,7 @@ class OutputStuffCommand extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->inline("Some ");
-        $output->out("content");
+        $output->write("Some ");
+        $output->writeln("content");
     }
 }

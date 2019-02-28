@@ -9,7 +9,9 @@ use function exec;
 
 class ApplicationTest extends TestCase
 {
-    protected $application;
+    /** @var Application */
+    private $application;
+
 
     public function setUp(): void
     {

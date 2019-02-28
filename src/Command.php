@@ -5,14 +5,15 @@ namespace duncan3dc\Console;
 use duncan3dc\SymfonyCLImate\Output;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function is_resource;
 
 /**
- * {@inheritDoc}
+ * @inheritdoc
  */
 class Command extends \Symfony\Component\Console\Command\Command
 {
     /**
-     * @var boolean $lock Whether this command uses locking or not
+     * @var bool|resource $lock Whether this command uses locking or not
      */
     protected $lock = true;
 
@@ -38,11 +39,11 @@ class Command extends \Symfony\Component\Console\Command\Command
     /**
      * Attempt to lock this command.
      *
-     * @param OutputInterface $output The output object to use for any error messages
+     * @param Output $output The output object to use for any error messages
      *
      * @return void
      */
-    public function lock(OutputInterface $output)
+    public function lock(Output $output)
     {
         # If this command doesn't require locking then don't do anything
         if (!$this->lock) {
@@ -82,7 +83,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     public function unlock()
     {
         # If this command doesn't require locking then don't do anything
-        if (!$this->lock) {
+        if (!is_resource($this->lock)) {
             return;
         }
 
@@ -106,7 +107,7 @@ class Command extends \Symfony\Component\Console\Command\Command
 
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function run(InputInterface $input, OutputInterface $output)
     {
@@ -116,11 +117,13 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $return = parent::run($input, $output);
 
-        if ($this->getApplication()->showResourceInfo()) {
+        $application = $this->getApplication();
+        if ($application instanceof Application && $application->showResourceInfo()) {
             $duration = $timer->getDuration();
-            $output->inline("[" . $this->getName() . "] ");
-            $output->inline("Time: " . $duration->format() . ", ");
-            $output->out(sprintf("Memory: %4.2fmb", memory_get_peak_usage(true) / 1048576));
+            $memory = memory_get_peak_usage(true) / 1048576;
+            $output->write("[" . $this->getName() . "] ");
+            $output->write("Time: " . $duration->format() . ", ");
+            $output->writeln(sprintf("Memory: %4.2fmb", $memory));
         }
 
         return $return;
@@ -136,8 +139,13 @@ class Command extends \Symfony\Component\Console\Command\Command
      */
     public function timeout(int $timeout): bool
     {
+        $application = $this->getApplication();
+        if (!$application instanceof Application) {
+            return false;
+        }
+
         # Check if the application is currently allowing time limiting or not
-        if (!$this->getApplication()->timeLimit()) {
+        if (!$application->timeLimit()) {
             return false;
         }
 
@@ -148,7 +156,7 @@ class Command extends \Symfony\Component\Console\Command\Command
 
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

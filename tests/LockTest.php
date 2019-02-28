@@ -3,13 +3,18 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
+use duncan3dc\Console\Command;
+use duncan3dc\SymfonyCLImate\Output;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Output\OutputInterface;
+use function assert;
+use function is_resource;
 
 class LockTest extends TestCase
 {
-    protected $application;
+    /** @var Application */
+    private $application;
+
 
     public function setUp(): void
     {
@@ -28,6 +33,7 @@ class LockTest extends TestCase
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $command = $this->application->get("category:do-stuff");
+        $this->assertInstanceOf(Command::class, $command);
         $this->assertSame("/tmp/console-locks/category_do-stuff.lock", $command->getLockPath());
     }
 
@@ -47,20 +53,23 @@ class LockTest extends TestCase
 
     public function testLock()
     {
-        $output = Mockery::mock(OutputInterface::class);
+        $output = Mockery::mock(Output::class);
 
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $command = $this->application->get("category:do-stuff");
+        $this->assertInstanceOf(Command::class, $command);
         $command->lock($output);
 
         $lock = fopen($command->getLockPath(), "w");
+        assert(is_resource($lock));
         $this->assertFalse(flock($lock, LOCK_EX | LOCK_NB));
         fclose($lock);
 
-        $command->unlock($output);
+        $command->unlock();
 
         $lock = fopen($command->getLockPath(), "w");
+        assert(is_resource($lock));
         $this->assertTrue(flock($lock, LOCK_EX | LOCK_NB));
         flock($lock, LOCK_UN);
         fclose($lock);
@@ -69,18 +78,20 @@ class LockTest extends TestCase
 
     public function testDoNotLock()
     {
-        $output = Mockery::mock(OutputInterface::class);
+        $output = Mockery::mock(Output::class);
 
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $command = $this->application->get("category:no-lock");
+        $this->assertInstanceOf(Command::class, $command);
         $command->lock($output);
 
         $lock = fopen($command->getLockPath(), "w");
+        assert(is_resource($lock));
         $this->assertTrue(flock($lock, LOCK_EX | LOCK_NB));
         flock($lock, LOCK_UN);
         fclose($lock);
 
-        $command->unlock($output);
+        $command->unlock();
     }
 }

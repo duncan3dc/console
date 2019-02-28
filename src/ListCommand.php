@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Terminal;
 use function array_key_exists;
 use function count;
+use function is_string;
 use function ksort;
 use function sprintf;
 use function strlen;
@@ -41,7 +42,11 @@ class ListCommand extends Command
 
         $this->maxWidth = (new Terminal())->getWidth();
 
-        $commands = $arnold->all($input->getArgument("namespace"));
+        $namespace = $input->getArgument("namespace");
+        if (!is_string($namespace)) {
+            $namespace = null;
+        }
+        $commands = $arnold->all($namespace);
         ksort($commands);
 
         $namespaces = [];
@@ -74,7 +79,7 @@ class ListCommand extends Command
                     $data["commands"] = ["" => "Run `list {$namespace}` to see the available commands in this namespace"];
                 } else {
                     foreach ($data["commands"] as $name => $null) {
-                        $padLength = strlen($name) + 4;
+                        $padLength = strlen((string) $name) + 4;
                         if ($padLength > $this->padLength) {
                             $this->padLength = $padLength;
                         }

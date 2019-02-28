@@ -9,7 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ListTest extends TestCase
 {
-    protected $application;
+    /** @var Application */
+    private $application;
+
 
     public function setUp(): void
     {
@@ -27,7 +29,8 @@ class ListTest extends TestCase
     {
         $_SERVER["argv"][1] = "category:";
 
-        $output = Mockery::mock(OutputInterface::class)->shouldIgnoreMissing();
+        $output = Mockery::mock(OutputInterface::class);
+        $output->shouldIgnoreMissing();
 
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
