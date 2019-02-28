@@ -19,7 +19,7 @@
         "symfony/event-dispatcher": "^3.4|^4.2",
         "symfony/filesystem": "^3.4|^4.2",
         "symfony/finder": "^3.4|^4.2",
-        "php": "^7.1"
+        "php": "^7.2"
     },
     "conflict": {
         "symfony/console": "3.4.16|4.1.5"
