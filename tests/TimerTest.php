@@ -11,7 +11,7 @@ class TimerTest extends TestCase
 
     public function testGetDuration()
     {
-        $timer = new Timer;
+        $timer = new Timer();
 
         $duration = $timer->getDuration();
 

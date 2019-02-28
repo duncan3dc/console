@@ -54,7 +54,7 @@ class Application extends \Symfony\Component\Console\Application
     {
         parent::__construct($name, $version);
 
-        $dispatcher = new EventDispatcher;
+        $dispatcher = new EventDispatcher();
         $this->setDispatcher($dispatcher);
 
         # Attempt to acquire a unique lock on the command
@@ -101,9 +101,8 @@ class Application extends \Symfony\Component\Console\Application
         # Get the realpath so we can strip it from the start of the filename
         $realpath = realpath($path);
 
-        $finder = (new Finder)->files()->in($path)->name("/[A-Z].*Command.php/");
+        $finder = (new Finder())->files()->in($path)->name("/[A-Z].*Command.php/");
         foreach ($finder as $file) {
-
             # Get the realpath of the file and ensure the class is loaded
             $filename = $file->getRealPath();
             require_once $filename;
@@ -149,10 +148,8 @@ class Application extends \Symfony\Component\Console\Application
     public function run(InputInterface $input = null, OutputInterface $output = null)
     {
         if ($input === null) {
-
             # Allow namespace contents to be listed when they are entered with a trailing colon
             if (isset($_SERVER["argv"][1]) && substr($_SERVER["argv"][1], -1) === ":") {
-
                 # Re-create the argv contents to simulate the user running the list command
                 $argv = [$_SERVER["argv"][0]];
                 $argv[] = "list";
@@ -160,11 +157,11 @@ class Application extends \Symfony\Component\Console\Application
                 $argv += array_slice($_SERVER["argv"], 2, count($_SERVER["argv"]) - 2);
                 $_SERVER["argv"] = $argv;
             }
-            $input = new ArgvInput;
+            $input = new ArgvInput();
         }
 
         if ($output === null) {
-            $output = new Output;
+            $output = new Output();
         }
 
         parent::run($input, $output);
@@ -198,7 +195,7 @@ class Application extends \Symfony\Component\Console\Application
         }
 
         if ($output->isVeryVerbose()) {
-            $handler = new \NunoMaduro\Collision\Handler;
+            $handler = new \NunoMaduro\Collision\Handler();
             $handler->setOutput($output);
             $provider = new \NunoMaduro\Collision\Provider(null, $handler);
             $provider->register();
@@ -239,7 +236,7 @@ class Application extends \Symfony\Component\Console\Application
     public function getLockPath(): string
     {
         if (!is_dir($this->lockPath)) {
-            (new Filesystem)->mkdir($this->lockPath);
+            (new Filesystem())->mkdir($this->lockPath);
         }
         return $this->lockPath;
     }
@@ -255,7 +252,7 @@ class Application extends \Symfony\Component\Console\Application
     public function setLockPath(string $path): Application
     {
         if (!is_dir($path)) {
-            (new Filesystem)->mkdir($path);
+            (new Filesystem())->mkdir($path);
         }
         if (!$realpath = realpath($path)) {
             throw new \InvalidArgumentException("The directory (" . $path . ") is unavailable");
@@ -273,7 +270,7 @@ class Application extends \Symfony\Component\Console\Application
     protected function getDefaultCommands()
     {
         $commands = parent::getDefaultCommands();
-        $commands[] = new CompletionCommand;
+        $commands[] = new CompletionCommand();
         return $commands;
     }
 

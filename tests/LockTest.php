@@ -13,7 +13,7 @@ class LockTest extends TestCase
 
     public function setUp(): void
     {
-        $this->application = new Application;
+        $this->application = new Application();
     }
 
 

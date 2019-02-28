@@ -13,7 +13,7 @@ class ApplicationTest extends TestCase
 
     public function setUp(): void
     {
-        $this->application = new Application;
+        $this->application = new Application();
     }
 
 
@@ -54,7 +54,7 @@ class ApplicationTest extends TestCase
     public function testSetLockPath()
     {
         $path = "/tmp/does_not_exist";
-        $fs = new Filesystem;
+        $fs = new Filesystem();
         if ($fs->exists($path)) {
             $fs->remove($path);
         }
@@ -67,7 +67,7 @@ class ApplicationTest extends TestCase
 
     public function testGetLockPath()
     {
-        $fs = new Filesystem;
+        $fs = new Filesystem();
 
         $path = $this->application->getLockPath();
 

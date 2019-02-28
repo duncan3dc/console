@@ -39,14 +39,13 @@ class ListCommand extends Command
     {
         $arnold = $this->getApplication();
 
-        $this->maxWidth = (new Terminal)->getWidth();
+        $this->maxWidth = (new Terminal())->getWidth();
 
         $commands = $arnold->all($input->getArgument("namespace"));
         ksort($commands);
 
         $namespaces = [];
         foreach ($commands as $name => $command) {
-
             $pos = strpos($name, ":");
             if ($pos === false) {
                 continue;

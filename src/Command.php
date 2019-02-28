@@ -112,7 +112,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     {
         $this->startTime = time();
 
-        $timer = new Timer;
+        $timer = new Timer();
 
         $return = parent::run($input, $output);
 
