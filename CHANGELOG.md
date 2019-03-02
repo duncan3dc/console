@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 1.3.0 - 2019-03-02
+
+### Changed
+
+* [Support] Added support for PHP 7.3
+* [Support] Drop support for PHP 7.1
+* [Support] Dropped support for Symfony 2.7, 3.1, 3.2, 3.3, 4.0, and 4.1
+
+--------
+
 ## 1.2.1 - 2018-10-01
 
 ### Fixed
