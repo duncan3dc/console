@@ -22,6 +22,7 @@
         "php": "^7.2"
     },
     "require-dev": {
+        "duncan3dc/uopz-expectations": "^0.3.0",
         "maglnet/composer-require-checker": "^1.0",
         "mockery/mockery": "^1.2",
         "phpstan/phpstan": "^0.11.2",

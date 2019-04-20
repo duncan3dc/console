@@ -6,6 +6,7 @@ use duncan3dc\Console\Application;
 use duncan3dc\SymfonyCLImate\Output;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Mockery\MockInterface;
@@ -54,15 +55,13 @@ class TimeLimitTest extends TestCase
 
     public function testNoTimeLimit()
     {
-        $reflection = new \ReflectionClass($this->application);
-        $timeLimit = $reflection->getProperty("timeLimit");
-        $timeLimit->setAccessible(true);
-        $timeLimit->setValue($this->application, false);
-
+        $this->application->setAutoExit(false);
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
+        $input = new ArrayInput(["category:time-limit", "--no-time-limit" => true]);
+
         $start = time();
-        $this->application->runCommand("category:time-limit", [], $this->input, $this->output);
+        $this->application->run($input, $this->output);
         $runtime = time() - $start;
         $this->assertGreaterThan(4, $runtime);
     }
