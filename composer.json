@@ -38,7 +38,8 @@
             "duncan3dc\\ConsoleTests\\": "tests/",
             "": "tests/commands/base/",
             "Extra\\": "tests/commands/extra/",
-            "Instantiate\\": "tests/commands/instantiate/"
+            "Instantiate\\": "tests/commands/instantiate/",
+            "Tasks\\": "tests/commands/tasks/"
         }
     },
     "scripts": {

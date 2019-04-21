@@ -64,6 +64,18 @@ class ApplicationTest extends TestCase
     }
 
 
+    /**
+     * Allow a custom suffix to be used for the commands.
+     */
+    public function testLoadCommands6(): void
+    {
+        $this->application->loadCommands(__DIR__ . "/commands/tasks", "Tasks", "Task");
+
+        $this->assertTrue($this->application->has("category:do-stuff"));
+        $this->assertFalse($this->application->has("category:ignore-me"));
+    }
+
+
     public function testSetLockPath()
     {
         $path = "/tmp/does_not_exist";

@@ -89,17 +89,19 @@ class Application extends \Symfony\Component\Console\Application
      * eg Category/Topic/RunCommand.php will create a command called category:topic:run
      *
      * @param string $path The path to search for the command classes
+     * @param string $namespace The parent namespace that these commands are in
+     * @param string $suffix The class suffix to search for
      *
      * @return $this
      */
-    public function loadCommands(string $path, string $namespace = ""): Application
+    public function loadCommands(string $path, string $namespace = "", string $suffix = "Command"): Application
     {
         $commands = [];
 
         # Get the realpath so we can strip it from the start of the filename
         $realpath = (string) realpath($path);
 
-        $finder = (new Finder())->files()->in($path)->name("/[A-Z].*Command.php/");
+        $finder = (new Finder())->files()->in($path)->name("/[A-Z].*{$suffix}.php/");
         foreach ($finder as $file) {
             # Get the realpath of the file and ensure the class is loaded
             $filename = (string) $file->getRealPath();
@@ -116,7 +118,7 @@ class Application extends \Symfony\Component\Console\Application
             if (substr($command, 0, 1) == "\\") {
                 $command = substr($command, 1);
             }
-            $command = (string) preg_replace_callback("/^([A-Z])(.*)Command$/", function ($match) {
+            $command = (string) preg_replace_callback("/^([A-Z])(.*){$suffix}$/", function ($match) {
                 return strtolower($match[1]) . $match[2];
             }, $command);
             $command = preg_replace_callback("/(\\\\)?([A-Z])/", function ($match) {
