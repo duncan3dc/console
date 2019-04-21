@@ -125,8 +125,14 @@ class Application extends \Symfony\Component\Console\Application
                 return $result;
             }, $command);
 
-            # Create an instance of the command class
             $class = $namespace . $class;
+
+            # Don't attempt create things we can't instantiate
+            $reflected = new \ReflectionClass($class);
+            if (!$reflected->isInstantiable()) {
+                continue;
+            }
+
             $commands[] = new $class($command);
         }
 

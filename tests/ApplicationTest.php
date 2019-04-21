@@ -53,6 +53,17 @@ class ApplicationTest extends TestCase
     }
 
 
+    /**
+     * Ensure we don't try to instantiate interfaces or abstract classes.
+     */
+    public function testLoadCommands5(): void
+    {
+        $this->application->loadCommands(__DIR__ . "/commands/instantiate", "Instantiate");
+
+        $this->assertTrue($this->application->has("concretes:do-stuff"));
+    }
+
+
     public function testSetLockPath()
     {
         $path = "/tmp/does_not_exist";

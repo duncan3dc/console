@@ -37,7 +37,8 @@
         "psr-4": {
             "duncan3dc\\ConsoleTests\\": "tests/",
             "": "tests/commands/base/",
-            "Extra\\": "tests/commands/extra/"
+            "Extra\\": "tests/commands/extra/",
+            "Instantiate\\": "tests/commands/instantiate/"
         }
     },
     "scripts": {
