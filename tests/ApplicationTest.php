@@ -7,6 +7,7 @@ use duncan3dc\Mock\CoreFunction;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use function exec;
+use function is_dir;
 
 class ApplicationTest extends TestCase
 {
@@ -117,6 +118,14 @@ class ApplicationTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("The directory (/invalid/path/name) is unavailable");
         $this->application->setLockPath("/invalid/path/name");
+    }
+
+
+    public function testGetLockFactory1(): void
+    {
+        $this->application->getLockFactory();
+
+        $this->assertTrue(is_dir("/tmp/console-locks"));
     }
 
 

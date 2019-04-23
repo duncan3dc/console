@@ -32,16 +32,6 @@ class LockTest extends TestCase
     }
 
 
-    public function testLockPath()
-    {
-        $this->application->loadCommands(__DIR__ . "/commands/base");
-
-        $command = $this->application->get("category:do-stuff");
-        $this->assertInstanceOf(Command::class, $command);
-        $this->assertSame("/tmp/console-locks/category_do-stuff.lock", $command->getLockPath());
-    }
-
-
     public function testSetLockPath()
     {
         $path = "/tmp/phpunit-test";

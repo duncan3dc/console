@@ -5,7 +5,7 @@ namespace duncan3dc\Console;
 use duncan3dc\SymfonyCLImate\Output;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use function is_resource;
+use Symfony\Component\Lock\LockInterface;
 
 /**
  * @inheritdoc
@@ -13,7 +13,7 @@ use function is_resource;
 class Command extends \Symfony\Component\Console\Command\Command
 {
     /**
-     * @var bool|resource $lock Whether this command uses locking or not
+     * @var bool|LockInterface $lock Whether this command uses locking or not
      */
     protected $lock = true;
 
@@ -21,19 +21,6 @@ class Command extends \Symfony\Component\Console\Command\Command
      * @var int $startTime The unix timestamp that the command started running
      */
     protected $startTime = null;
-
-
-    /**
-     * Get the full path to the lock file for this command.
-     *
-     * @return string The path for the lock file
-     */
-    public function getLockPath(): string
-    {
-        $path = $this->getApplication()->getLockPath();
-        $command = str_replace(":", "_", $this->getName());
-        return $path . "/" . $command . ".lock";
-    }
 
 
     /**
@@ -50,27 +37,11 @@ class Command extends \Symfony\Component\Console\Command\Command
             return;
         }
 
-        $path = $this->getLockPath();
+        $this->lock = $this->getApplication()->getLockFactory()->createLock($this->getName());
 
-        # If the lock file doesn't already exist then we are creating it, so we need to open the permissions on it
-        $newFile = !file_exists($path);
-
-        # Attempt to create/open a lock file for this command
-        if (!$this->lock = fopen($path, "w")) {
-            $output->error("Unable to create a lock file (" . $path . ")");
-            exit(Application::STATUS_PERMISSIONS);
-        }
-
-        # Attempt to lock the file we've just opened
-        if (!flock($this->lock, LOCK_EX | LOCK_NB)) {
-            fclose($this->lock);
+        if (!$this->lock->acquire()) {
             $output->error("Another instance of this command (" . $this->getName() . ") is currently running");
             exit(Application::STATUS_LOCKED);
-        }
-
-        # Ensure the permissions are as open as possible to allow multiple users to run the same command
-        if ($newFile) {
-            chmod($path, 0777);
         }
     }
 
@@ -82,15 +53,9 @@ class Command extends \Symfony\Component\Console\Command\Command
      */
     public function unlock()
     {
-        # If this command doesn't require locking then don't do anything
-        if (!is_resource($this->lock)) {
-            return;
+        if ($this->lock instanceof LockInterface) {
+            $this->lock->release();
         }
-
-        flock($this->lock, LOCK_UN);
-        fclose($this->lock);
-
-        unlink($this->getLockPath());
     }
 
 

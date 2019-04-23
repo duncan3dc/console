@@ -1,5 +1,5 @@
 parameters:
 	ignoreErrors:
 		- '/Parameter \#1 \$output of method duncan3dc\\Console\\Command::lock\(\) expects/'
-		- '/Call to an undefined method Symfony\\Component\\Console\\Application::getLockPath\(\)/'
+		- '/Call to an undefined method Symfony\\Component\\Console\\Application::getLockFactory\(\)/'
 		- '/Parameter \#2 \$output of method duncan3dc\\Console\\Command::command\(\)/'

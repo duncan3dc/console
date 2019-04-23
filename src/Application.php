@@ -15,6 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Lock\Factory;
+use Symfony\Component\Lock\Store\FlockStore;
+use Symfony\Component\Lock\StoreInterface;
 
 /**
  * {@inheritDoc}
@@ -30,6 +33,9 @@ class Application extends \Symfony\Component\Console\Application
      * The return code used when a permissions issue prevented a command from running
      */
     const STATUS_PERMISSIONS = 202;
+
+    /** @var Factory|null */
+    private $lockFactory;
 
     /**
      * @var string $lockPath The directory to store command locks in
@@ -233,18 +239,36 @@ class Application extends \Symfony\Component\Console\Application
 
 
     /**
-     * Get the path to the drectory where lock files are stored.
+     * Set the lock store to use.
      *
-     * Also checks if the directory exists and attempts to create it if not
+     * @param StoreInterface $store
      *
-     * @return string
+     * @return Factory
      */
-    public function getLockPath(): string
+    public function setLockStore(StoreInterface $store): Factory
     {
+        $this->lockFactory = new Factory($store);
+        return $this->lockFactory;
+    }
+
+
+    /**
+     * Get the lock factory in use.
+     *
+     * @return Factory
+     */
+    public function getLockFactory(): Factory
+    {
+        if ($this->lockFactory !== null) {
+            return $this->lockFactory;
+        }
+
         if (!is_dir($this->lockPath)) {
             (new Filesystem())->mkdir($this->lockPath);
         }
-        return $this->lockPath;
+        $store = new FlockStore($this->lockPath);
+
+        return $this->setLockStore($store);
     }
 
 
