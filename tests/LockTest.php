@@ -6,19 +6,23 @@ use duncan3dc\Console\Application;
 use duncan3dc\Console\Command;
 use duncan3dc\SymfonyCLImate\Output;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
-use function assert;
-use function is_resource;
+use function exec;
 
 class LockTest extends TestCase
 {
     /** @var Application */
     private $application;
 
+    /** @var Output&MockInterface */
+    private $output;
+
 
     public function setUp(): void
     {
         $this->application = new Application();
+        $this->output = Mockery::mock(Output::class);
     }
 
 
@@ -53,44 +57,39 @@ class LockTest extends TestCase
 
     public function testLock()
     {
-        $output = Mockery::mock(Output::class);
-
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $command = $this->application->get("category:do-stuff");
         $this->assertInstanceOf(Command::class, $command);
-        $command->lock($output);
 
-        $lock = fopen($command->getLockPath(), "w");
-        assert(is_resource($lock));
-        $this->assertFalse(flock($lock, LOCK_EX | LOCK_NB));
-        fclose($lock);
+        $command->lock($this->output);
+
+        $output = [];
+        exec(__DIR__ . "/app.php category:do-stuff --hide-resource-info", $output, $result);
+        $this->assertSame(Application::STATUS_LOCKED, $result);
+        $this->assertSame(["Another instance of this command (category:do-stuff) is currently running"], $output);
 
         $command->unlock();
 
-        $lock = fopen($command->getLockPath(), "w");
-        assert(is_resource($lock));
-        $this->assertTrue(flock($lock, LOCK_EX | LOCK_NB));
-        flock($lock, LOCK_UN);
-        fclose($lock);
+        $output = [];
+        exec(__DIR__ . "/app.php category:do-stuff --hide-resource-info", $output, $result);
+        $this->assertSame(0, $result);
+        $this->assertSame([], $output);
     }
 
 
     public function testDoNotLock()
     {
-        $output = Mockery::mock(Output::class);
-
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
         $command = $this->application->get("category:no-lock");
         $this->assertInstanceOf(Command::class, $command);
-        $command->lock($output);
+        $command->lock($this->output);
 
-        $lock = fopen($command->getLockPath(), "w");
-        assert(is_resource($lock));
-        $this->assertTrue(flock($lock, LOCK_EX | LOCK_NB));
-        flock($lock, LOCK_UN);
-        fclose($lock);
+        $output = [];
+        exec(__DIR__ . "/app.php category:no-lock --hide-resource-info", $output, $result);
+        $this->assertSame(0, $result);
+        $this->assertSame([], $output);
 
         $command->unlock();
     }
