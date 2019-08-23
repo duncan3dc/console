@@ -1,6 +1,22 @@
 Changelog
 =========
 
+## 1.4.0 - 2019-08-23
+
+### Added
+
+* [Commands] Allow a custom suffix to be used (instead of the default `Command`).
+
+### Changed
+
+* [Commands] Use symfony/lock to provide command locking.
+
+### Fixed
+
+* [Application] Don't try to instantiate abstract classes or interfaces.
+
+--------
+
 ## 1.3.0 - 2019-03-02
 
 ### Changed
