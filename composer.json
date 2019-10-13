@@ -36,6 +36,7 @@
         "psr-4": {"duncan3dc\\Console\\": "src/"}
     },
     "autoload-dev": {
+        "files": ["tests/functions.php"],
         "psr-4": {
             "duncan3dc\\ConsoleTests\\": "tests/",
             "": "tests/commands/base/",

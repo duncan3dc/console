@@ -10,6 +10,7 @@ use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 
 use function exec;
+use function runApplication;
 
 class LockTest extends TestCase
 {
@@ -55,17 +56,15 @@ class LockTest extends TestCase
 
         $command->lock($this->output);
 
-        $output = [];
-        exec(__DIR__ . "/app.php category:do-stuff --hide-resource-info", $output, $result);
-        $this->assertSame(Application::STATUS_LOCKED, $result);
-        $this->assertSame(["Another instance of this command (category:do-stuff) is currently running"], $output);
+        $result = runApplication("category:do-stuff --hide-resource-info");
+        $this->assertSame(Application::STATUS_LOCKED, $result->exit);
+        $this->assertSame(["Another instance of this command (category:do-stuff) is currently running"], $result->output);
 
         $command->unlock();
 
-        $output = [];
-        exec(__DIR__ . "/app.php category:do-stuff --hide-resource-info", $output, $result);
-        $this->assertSame(0, $result);
-        $this->assertSame([], $output);
+        $result = runApplication("category:do-stuff --hide-resource-info");
+        $this->assertSame(0, $result->exit);
+        $this->assertSame([], $result->output);
     }
 
 
@@ -77,10 +76,9 @@ class LockTest extends TestCase
         $this->assertInstanceOf(Command::class, $command);
         $command->lock($this->output);
 
-        $output = [];
-        exec(__DIR__ . "/app.php category:no-lock --hide-resource-info", $output, $result);
-        $this->assertSame(0, $result);
-        $this->assertSame([], $output);
+        $result = runApplication("category:no-lock --hide-resource-info");
+        $this->assertSame(0, $result->exit);
+        $this->assertSame([], $result->output);
 
         $command->unlock();
     }

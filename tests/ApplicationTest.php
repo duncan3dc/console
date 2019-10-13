@@ -9,6 +9,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 use function exec;
 use function is_dir;
+use function runApplication;
 
 class ApplicationTest extends TestCase
 {
@@ -132,8 +133,8 @@ class ApplicationTest extends TestCase
 
     public function testCommandLineExitCode()
     {
-        exec(__DIR__ . "/app.php exception", $output, $result);
+        $result = runApplication("exception");
 
-        $this->assertGreaterThan(0, $result);
+        $this->assertGreaterThan(0, $result->exit);
     }
 }
