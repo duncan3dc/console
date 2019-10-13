@@ -24,6 +24,23 @@ class Command extends \Symfony\Component\Console\Command\Command
 
 
     /**
+     * Get the name of this command.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        $name = parent::getName();
+
+        if ($name === null) {
+            throw new \BadMethodCallException("Unable to call getName() in this context");
+        }
+
+        return $name;
+    }
+
+
+    /**
      * Get the application instance for this command.
      *
      * @return Application
