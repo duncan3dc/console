@@ -24,6 +24,23 @@ class Command extends \Symfony\Component\Console\Command\Command
 
 
     /**
+     * Get the application instance for this command.
+     *
+     * @return Application
+     */
+    public function getApplication(): Application
+    {
+        $application = parent::getApplication();
+
+        if (!$application instanceof Application) {
+            throw new \BadMethodCallException("Unable to call getApplication() in this context");
+        }
+
+        return $application;
+    }
+
+
+    /**
      * Attempt to lock this command.
      *
      * @param Output $output The output object to use for any error messages
