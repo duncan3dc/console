@@ -27,12 +27,12 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * The return code used when a command cannot run as it is locked
      */
-    const STATUS_LOCKED = 201;
+    public const STATUS_LOCKED = 201;
 
     /**
      * The return code used when a permissions issue prevented a command from running
      */
-    const STATUS_PERMISSIONS = 202;
+    public const STATUS_PERMISSIONS = 202;
 
     /** @var Factory|null */
     private $lockFactory;

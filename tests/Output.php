@@ -2,8 +2,9 @@
 
 namespace duncan3dc\ConsoleTests;
 
-use function is_array;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use function is_array;
 
 class Output extends \duncan3dc\SymfonyCLImate\Output
 {

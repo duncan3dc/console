@@ -6,6 +6,7 @@ use duncan3dc\SymfonyCLImate\Output;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Terminal;
+
 use function array_key_exists;
 use function count;
 use function is_string;

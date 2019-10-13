@@ -3,14 +3,12 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
-use League\CLImate\TerminalObject\Basic\Out;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use function preg_match;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Mockery\MockInterface;
+
+use function preg_match;
 
 class ResourceInfoTest extends TestCase
 {

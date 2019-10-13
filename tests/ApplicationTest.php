@@ -6,6 +6,7 @@ use duncan3dc\Console\Application;
 use duncan3dc\Mock\CoreFunction;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
+
 use function exec;
 use function is_dir;
 

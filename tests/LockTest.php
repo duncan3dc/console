@@ -8,6 +8,7 @@ use duncan3dc\SymfonyCLImate\Output;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+
 use function exec;
 
 class LockTest extends TestCase
