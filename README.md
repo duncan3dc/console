@@ -109,3 +109,10 @@ To make this use case easier, we have made running a command with a trailing col
 :~$ console category:
 ```
 Which will list all your available commands, then you can press the up arrow to retrieve that same command from your shell's history and carry on entering the command name, much quicker
+
+
+## duncan3dc/console for enterprise
+
+Available as part of the Tidelift Subscription
+
+The maintainers of duncan3dc/console and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/packagist-duncan3dc-console?utm_source=packagist-duncan3dc-console&utm_medium=referral&utm_campaign=readme)
