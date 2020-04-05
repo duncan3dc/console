@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TimeLimitCommand extends Command
 {
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         for ($i = 0; $i < 5; $i++) {
             sleep(1);
@@ -16,5 +16,6 @@ class TimeLimitCommand extends Command
                 break;
             }
         }
+        return 0;
     }
 }

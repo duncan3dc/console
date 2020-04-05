@@ -13,7 +13,8 @@ class NoLockCommand extends Command
         $this->doNotLock();
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
+        return 0;
     }
 }

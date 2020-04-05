@@ -8,7 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DoStuffCommand extends Command
 {
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
+        return 0;
     }
 }
