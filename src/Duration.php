@@ -5,7 +5,7 @@ namespace duncan3dc\Console;
 class Duration
 {
     /**
-     * @var array The segments to break the duration up into
+     * @var array<string, int> The segments to break the duration up into
      */
     private $times = [
         "hours"     =>  3600,

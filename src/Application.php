@@ -136,6 +136,9 @@ class Application extends \Symfony\Component\Console\Application
             $class = $namespace . $class;
 
             # Don't attempt create things we can't instantiate
+            if (!class_exists($class)) {
+                 continue;
+            }
             $reflected = new \ReflectionClass($class);
             if (!$reflected->isInstantiable()) {
                 continue;
@@ -309,7 +312,7 @@ class Application extends \Symfony\Component\Console\Application
      * Run another command, usually from within the currently running command.
      *
      * @param string $command The fully namespaced name of the command to run
-     * @param array $options An array of options to pass to the command
+     * @param array<string, string> $options An array of options to pass to the command
      * @param InputInterface $current The input used in the parent command
      * @param OutputInterface $output The output used in the parent command
      *
