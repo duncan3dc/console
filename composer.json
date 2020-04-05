@@ -19,7 +19,7 @@
         "symfony/event-dispatcher": "^4.4",
         "symfony/filesystem": "^4.4",
         "symfony/finder": "^4.4",
-        "symfony/lock": "^4.4",
+        "symfony/lock": "^4.4.2",
         "php": "^7.3"
     },
     "require-dev": {

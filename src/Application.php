@@ -15,9 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Lock\Factory;
+use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\Lock\PersistingStoreInterface;
 use Symfony\Component\Lock\Store\FlockStore;
-use Symfony\Component\Lock\StoreInterface;
 
 /**
  * {@inheritDoc}
@@ -34,7 +34,7 @@ class Application extends \Symfony\Component\Console\Application
      */
     public const STATUS_PERMISSIONS = 202;
 
-    /** @var Factory|null */
+    /** @var LockFactory|null */
     private $lockFactory;
 
     /**
@@ -244,13 +244,13 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * Set the lock store to use.
      *
-     * @param StoreInterface $store
+     * @param PersistingStoreInterface $store
      *
-     * @return Factory
+     * @return LockFactory
      */
-    public function setLockStore(StoreInterface $store): Factory
+    public function setLockStore(PersistingStoreInterface $store): LockFactory
     {
-        $this->lockFactory = new Factory($store);
+        $this->lockFactory = new LockFactory($store);
         return $this->lockFactory;
     }
 
@@ -258,9 +258,9 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * Get the lock factory in use.
      *
-     * @return Factory
+     * @return LockFactory
      */
-    public function getLockFactory(): Factory
+    public function getLockFactory(): LockFactory
     {
         if ($this->lockFactory !== null) {
             return $this->lockFactory;
