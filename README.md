@@ -6,7 +6,7 @@ This is basically a fork of symfony/console which does things a little different
 Most of the features are useful when running commands in a background context (such as via crontab).  
 
 [![release](https://poser.pugx.org/duncan3dc/console/version.svg)](https://packagist.org/packages/duncan3dc/console)
-[![build](https://travis-ci.org/duncan3dc/console.svg?branch=master)](https://travis-ci.org/duncan3dc/console)
+[![build](https://github.com/duncan3dc/console/workflows/.github/workflows/buildcheck.yml/badge.svg?branch=master)](https://github.com/duncan3dc/console/actions?query=branch%3Amaster+workflow%3A.github%2Fworkflows%2Fbuildcheck.yml)
 [![coverage](https://codecov.io/gh/duncan3dc/console/graph/badge.svg)](https://codecov.io/gh/duncan3dc/console)
 
 
