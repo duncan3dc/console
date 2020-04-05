@@ -169,10 +169,10 @@ class Command extends \Symfony\Component\Console\Command\Command
      * @param InputInterface $input
      * @param Output $output
      *
-     * @return int|null Zero or null if everything went fine, otherwise the error code
+     * @return int Zero if everything went fine, otherwise the error code
      */
     protected function command(InputInterface $input, Output $output)
     {
-        return parent::execute($input, $output);
+        return (int) parent::execute($input, $output);
     }
 }
