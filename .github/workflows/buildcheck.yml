@@ -19,7 +19,7 @@ jobs:
         symfony:
           - ""
           - "3.4"
-          - "4.2"
+          - "4.4"
 
     steps:
       - uses: actions/checkout@v1
