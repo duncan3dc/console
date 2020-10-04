@@ -29,7 +29,7 @@ class ListCommand extends Command
     /** @var int */
     private $maxWidth = 0;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName("list")
@@ -37,7 +37,7 @@ class ListCommand extends Command
             ->addArgument("namespace", InputArgument::OPTIONAL, "Only show commands from this namespace");
     }
 
-    protected function command(InputInterface $input, Output $output)
+    protected function command(InputInterface $input, Output $output): int
     {
         $arnold = $this->getApplication();
 
@@ -96,9 +96,11 @@ class ListCommand extends Command
                 $this->outputInColumns(sprintf("%-{$this->tabLength}s", "") . $name, $description, $output);
             }
         }
+
+        return 0;
     }
 
-    private function outputInColumns($first, $second, Output $output): void
+    private function outputInColumns(string $first, string $second, Output $output): void
     {
         $output->info()->inline($first);
 

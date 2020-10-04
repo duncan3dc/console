@@ -157,7 +157,7 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * {@inheritDoc}
      */
-    public function run(InputInterface $input = null, OutputInterface $output = null)
+    public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
         if ($input === null) {
             # Allow namespace contents to be listed when they are entered with a trailing colon
@@ -176,7 +176,7 @@ class Application extends \Symfony\Component\Console\Application
             $output = new Output();
         }
 
-        parent::run($input, $output);
+        return parent::run($input, $output);
     }
 
 
@@ -185,7 +185,7 @@ class Application extends \Symfony\Component\Console\Application
      *
      * {@inheritDoc}
      */
-    protected function configureIO(InputInterface $input, OutputInterface $output)
+    protected function configureIO(InputInterface $input, OutputInterface $output): void
     {
         parent::configureIO($input, $output);
 
