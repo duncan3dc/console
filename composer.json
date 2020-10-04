@@ -20,7 +20,7 @@
         "symfony/filesystem": "^3.4 || ^4.4",
         "symfony/finder": "^3.4 || ^4.4",
         "symfony/lock": "^3.4 || ^4.4",
-        "php": "^7.2"
+        "php": "^7.3"
     },
     "require-dev": {
         "duncan3dc/uopz-expectations": "^0.3.0",
