@@ -34,7 +34,7 @@ class LockTest extends TestCase
     }
 
 
-    public function testSetLockPath()
+    public function testSetLockPath(): void
     {
         $path = "/tmp/phpunit-test";
 
@@ -47,7 +47,7 @@ class LockTest extends TestCase
     }
 
 
-    public function testLock()
+    public function testLock(): void
     {
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
@@ -68,7 +68,7 @@ class LockTest extends TestCase
     }
 
 
-    public function testDoNotLock()
+    public function testDoNotLock(): void
     {
         $this->application->loadCommands(__DIR__ . "/commands/base");
 

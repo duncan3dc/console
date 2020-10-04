@@ -8,7 +8,10 @@ use PHPUnit\Framework\TestCase;
 class DurationTest extends TestCase
 {
 
-    public function formatProvider()
+    /**
+     * @return array<float[]|string[]>
+     */
+    public function formatProvider(): iterable
     {
         $data = [
             "0.1"   =>  "100 ms",
@@ -23,13 +26,13 @@ class DurationTest extends TestCase
             "3600"  =>  "1 hours",
         ];
         foreach ($data as $time => $expected) {
-            yield [$time, $expected];
+            yield [(float) $time, $expected];
         }
     }
     /**
      * @dataProvider formatProvider
      */
-    public function testFormat($time, $expected)
+    public function testFormat(float $time, string $expected): void
     {
         $duration = new Duration($time);
 

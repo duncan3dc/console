@@ -25,7 +25,7 @@ class ListTest extends TestCase
     }
 
 
-    public function testOutput()
+    public function testOutput(): void
     {
         $_SERVER["argv"][1] = "category:";
 

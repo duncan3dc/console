@@ -13,9 +13,11 @@ class Output extends \duncan3dc\SymfonyCLImate\Output
 
 
     /**
-     * @inheritdoc
+     * @param string|string[] $messages
+     * @param bool $newline
+     * @param int $type
      */
-    public function write($messages, $newline = false, $type = OutputInterface::OUTPUT_NORMAL)
+    public function write($messages, $newline = false, $type = OutputInterface::OUTPUT_NORMAL): void
     {
         if ($type >= $this->getVerbosity()) {
             return;
@@ -35,9 +37,10 @@ class Output extends \duncan3dc\SymfonyCLImate\Output
 
 
     /**
-     * @inheritdoc
+     * @param string|string[] $messages
+     * @param int $type
      */
-    public function writeln($messages, $type = OutputInterface::OUTPUT_NORMAL)
+    public function writeln($messages, $type = OutputInterface::OUTPUT_NORMAL): void
     {
         $this->write($messages, true);
     }

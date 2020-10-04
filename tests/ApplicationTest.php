@@ -42,7 +42,7 @@ class ApplicationTest extends TestCase
     }
 
 
-    public function testLoadCommands()
+    public function testLoadCommands(): void
     {
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
@@ -50,7 +50,7 @@ class ApplicationTest extends TestCase
     }
 
 
-    public function testLoadCommandsNamespace()
+    public function testLoadCommandsNamespace(): void
     {
         $this->application->loadCommands(__DIR__ . "/commands/extra", "Extra");
 
@@ -58,7 +58,7 @@ class ApplicationTest extends TestCase
     }
 
 
-    public function testLoadCommandsInvalidDirectory()
+    public function testLoadCommandsInvalidDirectory(): void
     {
         $path = __DIR__ . "/no-such-directory";
         $this->expectException(\InvalidArgumentException::class);
@@ -67,7 +67,7 @@ class ApplicationTest extends TestCase
     }
 
 
-    public function testLoadCommandsEmptyDirectory()
+    public function testLoadCommandsEmptyDirectory(): void
     {
         $path = __DIR__ . "/commands/empty-directory";
         $this->expectException(\InvalidArgumentException::class);
@@ -131,7 +131,7 @@ class ApplicationTest extends TestCase
     }
 
 
-    public function testCommandLineExitCode()
+    public function testCommandLineExitCode(): void
     {
         $result = runApplication("exception");
 

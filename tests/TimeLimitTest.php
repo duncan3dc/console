@@ -41,7 +41,7 @@ class TimeLimitTest extends TestCase
     }
 
 
-    public function testTimeLimit()
+    public function testTimeLimit(): void
     {
         $this->application->loadCommands(__DIR__ . "/commands/base");
 
@@ -53,7 +53,7 @@ class TimeLimitTest extends TestCase
     }
 
 
-    public function testNoTimeLimit()
+    public function testNoTimeLimit(): void
     {
         $this->application->setAutoExit(false);
         $this->application->loadCommands(__DIR__ . "/commands/base");

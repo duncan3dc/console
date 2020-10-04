@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class NoLockCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->doNotLock();
     }
