@@ -4,7 +4,8 @@ FROM php:${PHP_VERSION}-cli
 ARG COVERAGE
 RUN if [ "$COVERAGE" = "pcov" ]; then pecl install pcov && docker-php-ext-enable pcov; fi
 
-RUN pecl install uopz && docker-php-ext-enable uopz
+RUN echo "if [[ $PHP_VERSION == 7.* ]]; then pecl install uopz-6.1.2; else pecl install uopz; fi" > uopz.sh
+RUN bash uopz.sh && docker-php-ext-enable uopz
 
 # Install composer to manage PHP dependencies
 RUN apt-get update && apt-get install -y git zip
