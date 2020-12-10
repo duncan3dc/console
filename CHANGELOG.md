@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 2.0.0 - 2020-12-10
+
+### Added
+
+* [Support] Support for Symfony 5 has been added.
+
+### Changed
+
+* [Command] execute() must return an integer and declare a return type.
+* [Command] getApplication() must return an instance of this library's application class.
+* [Command] getName() will throw an exception if no name has been set.
+
+### Removed
+
+* [Support] Support for Symfony 3, 4.2, and 4.3 have been dropped, 4.4 is now required.
+* [Support] Support for PHP 7.2 has been dropped.
+
+--------
+
 ## 1.4.0 - 2019-08-23
 
 ### Added
