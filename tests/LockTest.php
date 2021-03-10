@@ -21,14 +21,14 @@ class LockTest extends TestCase
     private $output;
 
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->application = new Application();
         $this->output = Mockery::mock(Output::class);
     }
 
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Mockery::close();
     }

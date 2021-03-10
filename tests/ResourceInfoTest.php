@@ -22,7 +22,7 @@ class ResourceInfoTest extends TestCase
     private $output;
 
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->application = new Application();
         $this->application->setAutoExit(false);
@@ -34,7 +34,7 @@ class ResourceInfoTest extends TestCase
     }
 
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Mockery::close();
     }

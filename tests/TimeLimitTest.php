@@ -23,7 +23,7 @@ class TimeLimitTest extends TestCase
     private $output;
 
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->application = new Application();
 
@@ -35,7 +35,7 @@ class TimeLimitTest extends TestCase
     }
 
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Mockery::close();
     }
