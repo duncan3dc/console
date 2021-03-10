@@ -17,7 +17,7 @@ class ApplicationTest extends TestCase
     private $application;
 
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->application = new Application();
     }
@@ -26,7 +26,7 @@ class ApplicationTest extends TestCase
     /**
      * @inheritdoc
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $fs = new Filesystem();
 
@@ -127,7 +127,7 @@ class ApplicationTest extends TestCase
     {
         $this->application->getLockFactory();
 
-        $this->assertTrue(is_dir("/tmp/console-locks"));
+        $this->assertDirectoryExists("/tmp/console-locks");
     }
 
 
