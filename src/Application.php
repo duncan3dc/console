@@ -320,8 +320,6 @@ class Application extends \Symfony\Component\Console\Application
      */
     public function runCommand(string $command, array $options, InputInterface $current, OutputInterface $output): int
     {
-        # The first input argument must be the command name
-        array_unshift($options, $command);
         $input = new ArrayInput($options);
 
         if (!$current->isInteractive()) {

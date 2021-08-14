@@ -1,6 +1,22 @@
 Changelog
 =========
 
+## 2.0.2 - 2021-08-14
+
+### Fixed
+
+* [Application] Tidied up the internals of runCommand() to not duplicate the name of the command.
+
+--------
+
+## 2.0.1 - 2020-12-10
+
+### Added
+
+* [Support] Support for the latest version of Collision.
+
+--------
+
 ## 2.0.0 - 2020-12-10
 
 ### Added
