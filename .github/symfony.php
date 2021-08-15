@@ -1,18 +1,19 @@
 #!/usr/bin/env php
 <?php
 
-if (!$_SERVER["argv"][1]) {
+$override = $_SERVER["argv"][1] ?? "";
+if (!$override) {
     return;
 }
 
-$path = __DIR__ . "/../../composer.json";
+$path = __DIR__ . "/../composer.json";
 
 $json = (string) file_get_contents($path);
 $composer = json_decode($json);
 
 foreach ($composer->require as $package => &$version) {
     if (substr($package, 0, 11) === "symfony/") {
-        $version = "^" . $_SERVER["argv"][1];
+        $version = "^{$override}";
     }
 }
 unset($version);
