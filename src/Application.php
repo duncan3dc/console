@@ -299,10 +299,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function getDefaultCommands()
+    protected function getDefaultCommands(): array
     {
         $commands = parent::getDefaultCommands();
         $commands[] = new CompletionCommand();

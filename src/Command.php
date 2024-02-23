@@ -105,10 +105,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     }
 
 
-    /**
-     * @inheritdoc
-     */
-    public function run(InputInterface $input, OutputInterface $output)
+    public function run(InputInterface $input, OutputInterface $output): int
     {
         $this->startTime = time();
 
