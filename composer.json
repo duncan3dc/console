@@ -54,5 +54,10 @@
             "vendor/bin/phpcs --standard=phpcs.xml src tests",
             "@composer validate --strict"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "ocramius/package-versions": true
+        }
     }
 }
