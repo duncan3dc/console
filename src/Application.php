@@ -144,7 +144,9 @@ class Application extends \Symfony\Component\Console\Application
                 continue;
             }
 
-            $commands[] = new $class($command);
+            /** @var \Symfony\Component\Console\Command\Command $object */
+            $object = new $class($command);
+            $commands[] = $object;
         }
 
         if (count($commands) < 1) {
