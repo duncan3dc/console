@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class TimerTest extends TestCase
 {
-
     public function testGetDuration(): void
     {
         $timer = new Timer();

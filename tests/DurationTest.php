@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class DurationTest extends TestCase
 {
-
     /**
      * @return array<float[]|string[]>
      */
