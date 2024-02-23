@@ -12,7 +12,7 @@ $json = (string) file_get_contents($path);
 $composer = json_decode($json);
 
 foreach ($composer->require as $package => &$version) {
-    if (substr($package, 0, 11) === "symfony/") {
+    if (substr($package, 0, 8) === "symfony/") {
         $version = "^{$override}";
     }
 }
