@@ -17,8 +17,6 @@ jobs:
           - "--prefer-lowest"
         symfony:
           - ""
-          - "4.4"
-          - "5.1"
 
     steps:
       - uses: actions/checkout@v1
