@@ -27,7 +27,7 @@
     "require-dev": {
         "duncan3dc/uopz-expectations": "^1.0",
         "maglnet/composer-require-checker": "^3.0",
-        "mockery/mockery": "^1.4",
+        "mockery/mockery": "^1.6.7",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-mockery": "^1.1",
         "phpstan/phpstan-phpunit": "^1.3",
