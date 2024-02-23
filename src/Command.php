@@ -154,7 +154,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     /**
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->command($input, $output);
     }
@@ -170,6 +170,6 @@ class Command extends \Symfony\Component\Console\Command\Command
      */
     protected function command(InputInterface $input, Output $output)
     {
-        return (int) parent::execute($input, $output);
+        return parent::execute($input, $output);
     }
 }
