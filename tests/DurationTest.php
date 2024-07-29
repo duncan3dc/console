@@ -10,7 +10,7 @@ class DurationTest extends TestCase
     /**
      * @return array<float[]|string[]>
      */
-    public function formatProvider(): iterable
+    public static function formatProvider(): iterable
     {
         $data = [
             "0.1"   =>  "100 ms",
