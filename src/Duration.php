@@ -7,23 +7,15 @@ class Duration
     /**
      * @var array<string, int> The segments to break the duration up into
      */
-    private $times = [
+    private array $times = [
         "hours"     =>  3600,
         "minutes"   =>  60,
         "seconds"   =>  1,
     ];
 
-    /**
-     * @var float The duration this instance represents.
-     */
-    private $time;
+    private float $time;
 
 
-    /**
-     * Set the start time of the timer.
-     *
-     * @param float $time The time to start timing from
-     */
     public function __construct(float $time)
     {
         $this->time = $time;
@@ -32,8 +24,6 @@ class Duration
 
     /**
      * Formats the elapsed time as a string.
-     *
-     * @return string
      */
     public function format(): string
     {

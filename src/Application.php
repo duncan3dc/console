@@ -34,28 +34,24 @@ class Application extends \Symfony\Component\Console\Application
      */
     public const STATUS_PERMISSIONS = 202;
 
-    /** @var LockFactory|null */
-    private $lockFactory;
+    private ?LockFactory $lockFactory = null;
 
     /**
      * @var string $lockPath The directory to store command locks in
      */
-    protected $lockPath = "/tmp/console-locks";
+    protected string $lockPath = "/tmp/console-locks";
 
     /**
-     * @var boolean $timeLimit Whether the application currently allows time limits for commands
+     * @var bool $timeLimit Whether the application currently allows time limits for commands
      */
-    protected $timeLimit = true;
+    protected bool $timeLimit = true;
 
     /**
      * @var bool $showResourceInfo Whether the application should show resource info for commands
      */
-    private $showResourceInfo = true;
+    private bool $showResourceInfo = true;
 
 
-    /**
-     * {@inheritDoc}
-     */
     public function __construct(string $name = "UNKNOWN", string $version = "UNKNOWN")
     {
         parent::__construct($name, $version);
@@ -159,9 +155,6 @@ class Application extends \Symfony\Component\Console\Application
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
         if ($input === null) {
@@ -185,11 +178,6 @@ class Application extends \Symfony\Component\Console\Application
     }
 
 
-    /**
-     * Override configureIO() so that we can check if the global options were set.
-     *
-     * {@inheritDoc}
-     */
     protected function configureIO(InputInterface $input, OutputInterface $output): void
     {
         parent::configureIO($input, $output);
@@ -223,8 +211,6 @@ class Application extends \Symfony\Component\Console\Application
 
     /**
      * Allow commands to check if the application currently allows time limiting or prevents it.
-     *
-     * @return bool
      */
     public function timeLimit(): bool
     {
@@ -234,8 +220,6 @@ class Application extends \Symfony\Component\Console\Application
 
     /**
      * Allow commands to check if the application should show resource info or not.
-     *
-     * @return bool
      */
     public function showResourceInfo(): bool
     {
@@ -245,10 +229,6 @@ class Application extends \Symfony\Component\Console\Application
 
     /**
      * Set the lock store to use.
-     *
-     * @param PersistingStoreInterface $store
-     *
-     * @return LockFactory
      */
     public function setLockStore(PersistingStoreInterface $store): LockFactory
     {
@@ -259,8 +239,6 @@ class Application extends \Symfony\Component\Console\Application
 
     /**
      * Get the lock factory in use.
-     *
-     * @return LockFactory
      */
     public function getLockFactory(): LockFactory
     {

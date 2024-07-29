@@ -7,9 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockInterface;
 
-/**
- * @inheritdoc
- */
 class Command extends \Symfony\Component\Console\Command\Command
 {
     /**
@@ -18,16 +15,11 @@ class Command extends \Symfony\Component\Console\Command\Command
     protected $lock = true;
 
     /**
-     * @var int $startTime The unix timestamp that the command started running
+     * @var int|null $startTime The unix timestamp that the command started running
      */
-    protected $startTime = null;
+    protected ?int $startTime = null;
 
 
-    /**
-     * Get the name of this command.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         $name = parent::getName();
@@ -40,11 +32,6 @@ class Command extends \Symfony\Component\Console\Command\Command
     }
 
 
-    /**
-     * Get the application instance for this command.
-     *
-     * @return Application
-     */
     public function getApplication(): Application
     {
         $application = parent::getApplication();
@@ -59,12 +46,8 @@ class Command extends \Symfony\Component\Console\Command\Command
 
     /**
      * Attempt to lock this command.
-     *
-     * @param Output $output The output object to use for any error messages
-     *
-     * @return void
      */
-    public function lock(Output $output)
+    public function lock(Output $output): void
     {
         # If this command doesn't require locking then don't do anything
         if (!$this->lock) {
@@ -82,10 +65,8 @@ class Command extends \Symfony\Component\Console\Command\Command
 
     /**
      * Release a lock on the command (if one was acquired).
-     *
-     * @return void
      */
-    public function unlock()
+    public function unlock(): void
     {
         if ($this->lock instanceof LockInterface) {
             $this->lock->release();
@@ -151,9 +132,6 @@ class Command extends \Symfony\Component\Console\Command\Command
     }
 
 
-    /**
-     * @inheritdoc
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->command($input, $output);
@@ -163,12 +141,9 @@ class Command extends \Symfony\Component\Console\Command\Command
     /**
      * Execute this command.
      *
-     * @param InputInterface $input
-     * @param Output $output
-     *
      * @return int Zero if everything went fine, otherwise the error code
      */
-    protected function command(InputInterface $input, Output $output)
+    protected function command(InputInterface $input, Output $output): int
     {
         return parent::execute($input, $output);
     }

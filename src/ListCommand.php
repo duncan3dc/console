@@ -20,14 +20,11 @@ use function trim;
 
 class ListCommand extends Command
 {
-    /** @var int */
-    private $tabLength = 4;
+    private int $tabLength = 4;
 
-    /** @var int */
-    private $padLength = 0;
+    private int $padLength = 0;
 
-    /** @var int */
-    private $maxWidth = 0;
+    private int $maxWidth = 0;
 
     protected function configure(): void
     {
