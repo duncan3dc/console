@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 2.3.0 - 2024-07-29
+
+### Changed
+
+* [Support] Support for Symfony 7 has been added.
+* [Application] Types have been added to properties.
+* [Command] Types have been added to properties and method returns.
+
+--------
+
 ## 2.2.0 - 2024-02-23
 
 ### Changed
