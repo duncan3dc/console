@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 2.4.0 - 2025-06-11
+
+### Added
+
+* [Support] Support for PHP 8.4 has been added.
+
+--------
+
 ## 2.3.1 - 2025-03-06
 
 ### Changed
