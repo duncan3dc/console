@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 2.3.1 - 2025-03-06
+
+### Changed
+
+* [Application] Explicitly declare nullable arguments.
+
+--------
+
 ## 2.3.0 - 2024-07-29
 
 ### Changed

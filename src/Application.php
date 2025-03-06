@@ -155,7 +155,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
 
-    public function run(InputInterface $input = null, OutputInterface $output = null): int
+    public function run(?InputInterface $input = null, ?OutputInterface $output = null): int
     {
         if ($input === null) {
             # Allow namespace contents to be listed when they are entered with a trailing colon
