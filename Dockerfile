@@ -10,3 +10,4 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN echo "phar.readonly = 0" > /usr/local/etc/php/conf.d/console.ini
 
 WORKDIR /app
+RUN git config --global --add safe.directory /app
