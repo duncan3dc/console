@@ -3,12 +3,9 @@
 namespace duncan3dc\ConsoleTests;
 
 use duncan3dc\Console\Application;
-use duncan3dc\Mock\CoreFunction;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-use function exec;
-use function is_dir;
 use function runApplication;
 
 class ApplicationTest extends TestCase
@@ -37,8 +34,6 @@ class ApplicationTest extends TestCase
         if ($fs->exists("/tmp/console-locks")) {
             $fs->remove("/tmp/console-locks");
         }
-
-        CoreFunction::close();
     }
 
 
@@ -115,11 +110,13 @@ class ApplicationTest extends TestCase
 
     public function testSetLockPath2(): void
     {
-        CoreFunction::mock("is_dir")->once()->with("/invalid/path/name")->andReturn(true);
+        $phar = new \Phar("/tmp/test.phar");
+        $phar->addEmptyDir("virtual");
+        $path = $phar["virtual"]->getPath();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("The directory (/invalid/path/name) is unavailable");
-        $this->application->setLockPath("/invalid/path/name");
+        $this->expectExceptionMessage("The directory ({$path}) is unavailable");
+        $this->application->setLockPath($path);
     }
 
 
