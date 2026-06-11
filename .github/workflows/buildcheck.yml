@@ -1,10 +1,8 @@
 name: buildcheck
-
-on:
-  push:
+"on":
+  push: null
   schedule:
     - cron: 0 10 11 * *
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,12 +13,13 @@ jobs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
         composer:
           - ""
           - "--prefer-lowest"
         symfony:
           - ""
-          - "6.0.19"
+          - 6.0.19
           - "7.0"
         include:
           - php: "7.4"
@@ -36,10 +35,10 @@ jobs:
             symfony: ""
             composer: "--prefer-lowest"
           - php: "8.0"
-            symfony: "6.0.19"
+            symfony: 6.0.19
             composer: ""
           - php: "8.0"
-            symfony: "6.0.19"
+            symfony: 6.0.19
             composer: "--prefer-lowest"
           - php: "8.1"
             symfony: ""
@@ -48,38 +47,30 @@ jobs:
             symfony: ""
             composer: "--prefer-lowest"
           - php: "8.1"
-            symfony: "6.0.19"
+            symfony: 6.0.19
             composer: ""
           - php: "8.1"
-            symfony: "6.0.19"
+            symfony: 6.0.19
             composer: "--prefer-lowest"
-
     steps:
       - uses: actions/checkout@v1
-
       - name: Create Docker Container
         run: |
           docker build . -t ci-image --build-arg PHP_VERSION=${{ matrix.php }}
           docker run --interactive --detach --volume ${{ github.workspace }}:/app --name ci ci-image
-
       - name: Install Dependencies
         run: |
           docker exec ci .github/symfony.php ${{ matrix.symfony }}
           docker exec ci composer update --no-interaction --no-ansi --prefer-dist ${{ matrix.composer }}
-
       - name: PHPUnit
         run: docker exec ci vendor/bin/phpunit
-
       - name: PHPStan
         run: |
           docker exec ci vendor/bin/phpstan analyse --level=max --configuration=phpstan-src.neon src
           docker exec ci vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests
-
       - name: Coding Standards
         run: docker exec ci vendor/bin/phpcs --standard=phpcs.xml src tests
-
       - name: Check Dependencies
         run: docker exec ci vendor/bin/composer-require-checker
-
       - name: Composer Validate
         run: docker exec ci composer validate --strict
