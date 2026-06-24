@@ -158,6 +158,7 @@ class Application extends \Symfony\Component\Console\Application
     public function run(?InputInterface $input = null, ?OutputInterface $output = null): int
     {
         if ($input === null) {
+            /** @var array<string, array<int, string>> $_SERVER */
             # Allow namespace contents to be listed when they are entered with a trailing colon
             if (isset($_SERVER["argv"][1]) && substr($_SERVER["argv"][1], -1) === ":") {
                 # Re-create the argv contents to simulate the user running the list command

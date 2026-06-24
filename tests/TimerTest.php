@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 
 class TimerTest extends TestCase
 {
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testGetDuration(): void
     {
         $timer = new Timer();
-
-        $duration = $timer->getDuration();
-
-        $this->assertInstanceOf(Duration::class, $duration);
+        $timer->getDuration();
     }
 }

@@ -27,6 +27,7 @@ class ListTest extends TestCase
 
     public function testOutput(): void
     {
+        /** @var array<string, array<int, string>> $_SERVER */
         $_SERVER["argv"][1] = "category:";
 
         $output = Mockery::mock(OutputInterface::class);

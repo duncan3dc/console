@@ -95,7 +95,7 @@ class Command extends \Symfony\Component\Console\Command\Command
         $return = parent::run($input, $output);
 
         $application = $this->getApplication();
-        if ($application instanceof Application && $application->showResourceInfo()) {
+        if ($application->showResourceInfo()) {
             $duration = $timer->getDuration();
             $memory = memory_get_peak_usage(true) / 1048576;
             $output->write("[" . $this->getName() . "] ");
@@ -117,9 +117,6 @@ class Command extends \Symfony\Component\Console\Command\Command
     public function timeout(int $timeout): bool
     {
         $application = $this->getApplication();
-        if (!$application instanceof Application) {
-            return false;
-        }
 
         # Check if the application is currently allowing time limiting or not
         if (!$application->timeLimit()) {
