@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 2.5.0 - 2026-06-24
+
+### Changed
+
+* [Support] Added support for Symfony 8.
+* [Support] Added support for 8.5.
+
+--------
+
 ## 2.4.0 - 2025-06-11
 
 ### Added
