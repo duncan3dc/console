@@ -26,6 +26,7 @@ class ListCommand extends Command
 
     private int $maxWidth = 0;
 
+
     protected function configure(): void
     {
         $this
@@ -33,6 +34,7 @@ class ListCommand extends Command
             ->setDescription("Lists commands")
             ->addArgument("namespace", InputArgument::OPTIONAL, "Only show commands from this namespace");
     }
+
 
     protected function command(InputInterface $input, Output $output): int
     {
@@ -96,6 +98,7 @@ class ListCommand extends Command
 
         return 0;
     }
+
 
     private function outputInColumns(string $first, string $second, Output $output): void
     {

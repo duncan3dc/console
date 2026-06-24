@@ -8,9 +8,9 @@ class Duration
      * @var array<string, int> The segments to break the duration up into
      */
     private array $times = [
-        "hours"     =>  3600,
-        "minutes"   =>  60,
-        "seconds"   =>  1,
+        "hours" => 3600,
+        "minutes" => 60,
+        "seconds" => 1,
     ];
 
     private float $time;

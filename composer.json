@@ -30,7 +30,7 @@
         "phpstan/phpstan": "^2.2",
         "phpstan/phpstan-mockery": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "squizlabs/php_codesniffer": "^3.6",
+        "squizlabs/php_codesniffer": "^4.0",
         "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0"
     },
     "autoload": {
@@ -52,7 +52,7 @@
             "vendor/bin/composer-require-checker",
             "vendor/bin/phpstan analyse --level=max --configuration=phpstan-src.neon src",
             "vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests",
-            "vendor/bin/phpcs --standard=phpcs.xml src tests",
+            "vendor/bin/phpcs",
             "@composer validate --strict"
         ]
     },

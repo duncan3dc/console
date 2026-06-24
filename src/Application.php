@@ -133,7 +133,7 @@ class Application extends \Symfony\Component\Console\Application
 
             # Don't attempt create things we can't instantiate
             if (!class_exists($class)) {
-                 continue;
+                continue;
             }
             $reflected = new \ReflectionClass($class);
             if (!$reflected->isInstantiable()) {
