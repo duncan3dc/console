@@ -38,7 +38,9 @@ class ListTest extends TestCase
         $this->application->setAutoExit(false);
         $this->application->run(null, $output);
 
-        $this->assertSame("list", $_SERVER["argv"][1]);
-        $this->assertSame("category", $_SERVER["argv"][2]);
+        /** @var array<int, string> $argv */
+        $argv = $_SERVER["argv"];
+        $this->assertSame("list", $argv[1]);
+        $this->assertSame("category", $argv[2]);
     }
 }
